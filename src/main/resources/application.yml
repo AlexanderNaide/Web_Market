@@ -1,22 +1,22 @@
 spring:
   datasource:
+#    url: jdbc:mysql://localhost:3306/products_database_opt?createDatabaseIfNotExist=true
     url: jdbc:mysql://localhost:3306/web_market_db?createDatabaseIfNotExist=true
     username: root
     password: 6830
-    #    password: 312808895
+#    password: 312808895
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     show-sql: true
     hibernate:
-#      ddl-auto: validate #Невмешательство в структуру БД, только чтение
-      ddl-auto: create #Полная очистка и создание новой БД при старте Spring
-#        ddl-auto: create-drop #Полная очистка и создание новой БД при старте Spring + очистка после завершения Spring
-#        ddl-auto: update #Обновление структуры БД
+#      ddl-auto: validate #РќРµРІРјРµС€Р°С‚РµР»СЊСЃС‚РІРѕ РІ СЃС‚СЂСѓРєС‚СѓСЂСѓ Р‘Р”, С‚РѕР»СЊРєРѕ С‡С‚РµРЅРёРµ
+        ddl-auto: create #РџРѕР»РЅР°СЏ РѕС‡РёСЃС‚РєР° Рё СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕР№ Р‘Р” РїСЂРё СЃС‚Р°СЂС‚Рµ Spring
+#        ddl-auto: create-drop #РџРѕР»РЅР°СЏ РѕС‡РёСЃС‚РєР° Рё СЃРѕР·РґР°РЅРёРµ РЅРѕРІРѕР№ Р‘Р” РїСЂРё СЃС‚Р°СЂС‚Рµ Spring + РѕС‡РёСЃС‚РєР° РїРѕСЃР»Рµ Р·Р°РІРµСЂС€РµРЅРёСЏ Spring
+#        ddl-auto: update #РћР±РЅРѕРІР»РµРЅРёРµ СЃС‚СЂСѓРєС‚СѓСЂС‹ Р‘Р”
 
   jackson:
     serialization:
       indent-output: true
   jooq:
     sql-dialect: org.hibernate.dialect.MySQLDialect
-
