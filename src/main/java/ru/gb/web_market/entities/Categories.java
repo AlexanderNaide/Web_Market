@@ -12,9 +12,9 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "manufacturer")
+@Table(name = "categories")
 @NoArgsConstructor
-public class Manufacturer {
+public class Categories {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +22,13 @@ public class Manufacturer {
     @Unsigned
     private Long id;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    @Unsigned
+    private Categories categories;
+
     @Column(name = "title", nullable = false)
     private String title;
-
-    @Column(name = "info", length = 1800)
-    private String info;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -36,6 +38,9 @@ public class Manufacturer {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "manufacturer")
+    @OneToMany(mappedBy = "categories")
+    private List<Categories> categoriesList;
+
+    @OneToMany(mappedBy = "categories")
     private List<Product> productList;
 }
