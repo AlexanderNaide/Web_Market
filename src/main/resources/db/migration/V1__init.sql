@@ -32,7 +32,6 @@ CREATE TABLE `products` (
                             `purchase_price` double DEFAULT NULL,
                             `old_price` double DEFAULT NULL,
                             `count` int DEFAULT NULL,
-                            `short_description` varchar(255) DEFAULT NULL,
                             `description` varchar(1200) DEFAULT NULL,
                             `path` varchar(255) DEFAULT NULL,
                             `images_title` varchar(2000) DEFAULT NULL,
@@ -42,7 +41,6 @@ CREATE TABLE `products` (
                             `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
                             PRIMARY KEY (`id`),
                             KEY `fk_product_categories_idx` (`category_id`),
-                            UNIQUE KEY `article_UNIQUE` (`article`),
   KEY `fk_product_manufacturer_idx` (`manufacturer_id`),
   CONSTRAINT `fk_product_categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
   CONSTRAINT `fk_product_manufacturer` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturer` (`id`)

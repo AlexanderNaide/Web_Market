@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 @Entity
 @Data
@@ -23,7 +21,7 @@ public class Product {
     @Unsigned
     private Long id;
 
-    @Column(name = "article", nullable = false, unique = true)
+    @Column(name = "article", nullable = false)
     private String article;
 
     @Column(name = "modification")
@@ -54,9 +52,6 @@ public class Product {
     @Column(name = "count")
     private Integer count;
 
-    @Column(name = "short_description")
-    private String shortDescription;
-
     @Column(name = "description", length = 1200)
     private String description;
 
@@ -67,7 +62,7 @@ public class Product {
     private String imagesTitle;
 
     @Column(name = "images_linc", length = 2000)
-    private String images_linc;
+    private String imagesLinc;
 
     @Column(name = "specifications", length = 3000)
     private String specifications;
