@@ -38,4 +38,11 @@ public class Manufacturer {
 
     @OneToMany(mappedBy = "manufacturer")
     private List<Product> productList;
+
+//    public List<Product> getProductList() {
+//        if (productList.isEmpty()){
+//            productList = new ArrayList<>();
+//        }
+//        return productList;
+//    }
 }

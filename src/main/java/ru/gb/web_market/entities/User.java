@@ -61,4 +61,11 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
     private Collection<Product> cart;
+
+//    public List<Order> getOrderList() {
+//        if (orderList.isEmpty()){
+//            orderList = new ArrayList<>();
+//        }
+//        return orderList;
+//    }
 }
