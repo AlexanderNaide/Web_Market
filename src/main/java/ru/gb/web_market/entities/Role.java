@@ -2,6 +2,7 @@ package ru.gb.web_market.entities;
 
 import jakarta.persistence.*;
 import jdk.jfr.Unsigned;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Table(name = "roles")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Role {
 
     @Id
@@ -19,4 +21,8 @@ public class Role {
 
     @Column(name = "role", nullable = false)
     private String role;
+
+    public Role(String role) {
+        this.role = role;
+    }
 }
