@@ -96,14 +96,14 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 sub_cat: sub_cat
             }
         }).then(function (response) {
-            console.log(response.data)
+            // console.log(response.data)
             $scope.ManufacturerList = response.data;
         });
     };
 
     $scope.showCart = function () {
         $http({
-            url: contextPathCart + "/products",
+            url: contextPathCart,
             method: 'GET',
             headers: {
                 Authorization: "Bearer " + token
@@ -124,6 +124,18 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     };
 
+    $scope.showCartCount = function () {
+        $http({
+            url: contextPathCart + "/count",
+            method: 'GET',
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        }).then(function (response) {
+            $scope.CardTotalProduct = response.data;
+        });
+    };
+
     $scope.addToCart = function (id, count) {
         $http({
             url: contextPathCart + "/add_to_cart",
@@ -136,6 +148,23 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
                 count: count
             }
         }).then(function (response) {
+            $scope.showCartCount();
+        });
+    };
+
+    $scope.setCountToCart = function (id, count) {
+        $http({
+            url: contextPathCart + "/add_to_cart",
+            method: 'GET',
+            headers: {
+                Authorization: "Bearer " + token
+            },
+            params: {
+                id: id,
+                count: count
+            }
+        }).then(function (response) {
+            $scope.showCartCount();
             $scope.showCart();
         });
     };
@@ -225,12 +254,12 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
     $scope.authentications = function () {
         $http.post(contextPathAuth + '/token', $scope.auth)
             .then(function (response) {
-                console.log(response.data);
+                // console.log(response.data);
                 token = response.data.token;
                 $scope.buttonCart();
                 $('#authRes').click();
             }).catch(function (response) {
-                console.log(response.data.message)
+                // console.log(response.data.message)
             $scope.modalStatus = response.data.message;
         });
     };
@@ -246,7 +275,7 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         $scope.buttonTargetClick = token === null ? '#modalAuthentication' : '#exampleModalCart';
     };
 
-    $scope.buttonAddCart = function () {
+    $scope.visibleButtonAddToCart = function () {
         return token !== null;
     };
 

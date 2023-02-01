@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.gb.web_market.converters.ProductConverter;
 import ru.gb.web_market.dto.ProductToCartDto;
 import ru.gb.web_market.services.CartService;
+import ru.gb.web_market.services.ProductService;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class CartController {
     private final ProductConverter productConverter;
     private final CartService cartService;
+    private final ProductService productService;
 
 
     @GetMapping("/add_to_cart")
@@ -34,7 +37,13 @@ public class CartController {
     public List<ProductToCartDto> getMapCart(){
 //        return cartService.getMapCart().entrySet().stream().collect(Collectors.toList((entry) -> productConverter.entityToDto(entry.getKey()), Map.Entry::getValue));
         return cartService.getMapCart().entrySet().stream()
-                .map(entry -> productConverter.entityToCardDto(entry.getKey(), entry.getValue()))
+//                .map(entry -> productConverter.entityToCardDto(entry.getKey(), entry.getValue()))
+                .map(entry -> productConverter.entityToCardDto(Objects.requireNonNull(productService.findById(entry.getKey()).orElse(null)), entry.getValue()))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/count")
+    public int cartCount(){
+        return cartService.getCount();
     }
 }
