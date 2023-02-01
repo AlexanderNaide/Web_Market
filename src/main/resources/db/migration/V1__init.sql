@@ -32,7 +32,6 @@ CREATE TABLE `products` (
                             `purchase_price` double DEFAULT NULL,
                             `old_price` double DEFAULT NULL,
                             `count` int DEFAULT NULL,
-                            `short_description` varchar(255) DEFAULT NULL,
                             `description` varchar(1200) DEFAULT NULL,
                             `path` varchar(255) DEFAULT NULL,
                             `images_title` varchar(2000) DEFAULT NULL,
@@ -58,7 +57,6 @@ CREATE TABLE `users` (
                          `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                          `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
                          PRIMARY KEY (`id`),
-                         UNIQUE KEY `id_UNIQUE` (`id`),
                          UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -99,7 +97,7 @@ CREATE TABLE `orders` (
                           `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
                           `completed_at` timestamp NULL DEFAULT NULL,
                           `history` varchar(255) DEFAULT NULL,
-                          `adress` varchar(255) DEFAULT NULL,
+                          `address` varchar(255) DEFAULT NULL,
                           `info` varchar(255) DEFAULT NULL,
                           PRIMARY KEY (`id`),
                           KEY `fk_orders_userid_idx` (`user_id`),
@@ -110,7 +108,7 @@ DROP TABLE IF EXISTS `order_products`;
 CREATE TABLE `order_products` (
                                   `order_id` bigint unsigned NOT NULL,
                                   `product_id` bigint unsigned NOT NULL,
-                                  `count` int DEFAULT NULL,
+                                  `count` int unsigned DEFAULT NULL,
                                   PRIMARY KEY (`order_id`,`product_id`),
                                   KEY `fk_order_productid_idx` (`product_id`),
   CONSTRAINT `fk_order_productid` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
