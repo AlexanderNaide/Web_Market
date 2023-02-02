@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -56,9 +57,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Order> orderList;
 
-    @ManyToMany
-    @JoinTable(name = "cart",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Collection<Product> cart;
+    @ElementCollection
+    @CollectionTable(name = "cart",
+    joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+    @MapKeyColumn(name = "product_id")
+    @Column(name = "count")
+    private Map<Long, Integer> cart;
+
 }

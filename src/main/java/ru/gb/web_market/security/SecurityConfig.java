@@ -49,6 +49,12 @@ public class SecurityConfig {
         return webSecurity -> webSecurity.ignoring().requestMatchers("/auth/**", "/api/v1/products/**");
     }
 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationProvider... providers){
+        return new ProviderManager(providers);
+    }
+
+
 //    @Bean
 //    public UserDetailsService userDetailsService(){
 //        UserDetails user = User.builder()
@@ -57,12 +63,8 @@ public class SecurityConfig {
 //                .authorities("ADMIN", "MANAGER")
 //                .build();
 //        return new InMemoryUserDetailsManager(user);
-//    }
 
-    @Bean
-    public AuthenticationManager authenticationManager(AuthenticationProvider... providers){
-        return new ProviderManager(providers);
-    }
+//    }
 
 //    @Bean
 //    public AuthenticationProvider authenticationProvider(){
@@ -71,7 +73,8 @@ public class SecurityConfig {
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        DaoAuthenticationProvider authenticationProvider = new MainDaoProvider();
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         authenticationProvider.setUserDetailsService(userService);
         return authenticationProvider;
