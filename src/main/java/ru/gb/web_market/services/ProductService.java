@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import ru.gb.web_market.aspect.Timer;
 import ru.gb.web_market.entities.Category;
 import ru.gb.web_market.entities.Manufacturer;
 import ru.gb.web_market.entities.Product;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor // Ломбоковская аннотация, которая инициализирует final поля вместо конструктора с @Autowired
+@Timer
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoriesService categoriesService;

@@ -3,13 +3,17 @@ package ru.gb.web_market.aspect;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.CodeSignature;
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 
 @Aspect
-//@Component
+@Component
 @Slf4j
 public class CartServiceAspect {
 
@@ -30,11 +34,12 @@ public class CartServiceAspect {
     // Around - выполняется ВМЕСТО вызываемого метода.
 
     // "execution (* ru.gb.web_market.services.CartService.getCart(..))" - это Pointcut - описание того, что нужно перехватить
-    // * - вместо звездочки можно указать возвращаемое значение, в данном случае "не важно"
+    // () - подействует только на метод БЕЗ аргументов, (*) - на метод только с 1 аргументом, (..) - на метод с любым количеством аргументов
+    // * ru.... - вместо звездочки можно указать возвращаемое значение, в данном случае "не важно"
     // JoinPoint - объект, содержащий всю информацию о вызове метода, совместим с Эдвайсами "До" или "После"
     // ProceedingJoinPoint - объект совместим с Эдвайсом Around, содержащий всю информацию о вызове метода +
     // также держит оригинальный метод, который можно вызвать .proceed() из перехваченного метода.
-    // Object return = pjp.proceed(); // так возвращается то, что метод возвращает в return
+    // Object returnObject = pjp.proceed(); // так возвращается то, что метод возвращает в return
 
 
     @Before("execution (* ru.gb.web_market.services.CartService.getCart(..))")
@@ -82,6 +87,28 @@ public class CartServiceAspect {
             pjp.proceed();
         } catch (Throwable e) {
             log.info(String.format("Во время удаления товара с Id = '%s' из корзины пользователя '%s' произошел сбой: '%s'", id, principal.getName(), e.getMessage()));
+        }
+    }
+
+
+
+
+    // Homework Задание №1
+
+
+
+    @Pointcut("execution (* ru.gb.web_market.services.*.*(..))")
+    public void allMethodsInServices(){
+    }
+    @Before("allMethodsInServices()")
+    public void debugMethodsInServices(JoinPoint jp) {
+        String className = jp.getTarget().getClass().getName();
+        String methodName = jp.getSignature().getName();
+        CodeSignature signature = (CodeSignature) jp.getSignature();
+        if(jp.getArgs().length > 0){
+            log.debug(String.format("Вызван метод %s в классе %s с аргументами %s и значениями %s", methodName, className, Arrays.toString(signature.getParameterNames()), Arrays.toString(jp.getArgs())));
+        } else {
+            log.debug(String.format("Вызван метод %s в классе %s без аргументов", methodName, className));
         }
     }
 
