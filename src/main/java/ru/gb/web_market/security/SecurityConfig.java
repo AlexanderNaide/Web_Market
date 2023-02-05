@@ -38,6 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/cart/**").authenticated()
 //                .requestMatchers("/api/v1/cart/**").hasAnyRole("USER")
+                .requestMatchers("/ws/**").permitAll()
                 .anyRequest().permitAll()
 //                .and().formLogin()
                 .and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
@@ -46,7 +47,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        return webSecurity -> webSecurity.ignoring().requestMatchers("/auth/**", "/api/v1/products/**");
+        return webSecurity -> webSecurity.ignoring().requestMatchers("/auth/**", "/api/v1/products/**", "/ws/**");
     }
 
     @Bean

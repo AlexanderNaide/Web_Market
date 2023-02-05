@@ -34,4 +34,6 @@ public interface CategoriesRepository extends JpaRepository<Category, Long>, Jpa
 
     Optional<Category> findFirstByTitle(String title);
 
+    List<Category> findAllByParentCategory(Category parentCategory);
+
 }

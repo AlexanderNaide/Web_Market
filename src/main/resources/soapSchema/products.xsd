@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xc:schema
+        xmlns:xc="http://www.w3.org/2001/XMLSchema"
+        xmlns:pr="http://www.web_market.ru/spring/wm/products"
+        targetNamespace="http://www.web_market.ru/spring/wm/products" elementFormDefault="qualified">
+
+    <xc:element name="getProductByCategoryRequest">
+        <xc:complexType>
+            <xc:sequence>
+                <xc:element name="category" type="xc:string"/>
+                <xc:element name="page" type="xc:integer"/>
+            </xc:sequence>
+        </xc:complexType>
+    </xc:element>
+
+    <xc:element name="getProductByCategoryResponse">
+        <xc:complexType>
+            <xc:sequence>
+                <xc:element name="products" maxOccurs="unbounded" type="pr:product"/>
+            </xc:sequence>
+        </xc:complexType>
+    </xc:element>
+    
+    <xc:complexType name="product">
+        <xc:sequence>
+            <xc:element name="id" type="xc:long"/>
+            <xc:element name="title" type="xc:string"/>
+            <xc:element name="price" type="xc:double"/>
+            <xc:element name="article" type="xc:string"/>
+            <xc:element name="category" type="xc:string"/>
+        </xc:sequence>
+    </xc:complexType>
+
+</xc:schema>

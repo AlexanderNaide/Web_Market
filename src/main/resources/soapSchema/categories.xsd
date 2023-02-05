@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xc:schema
+        xmlns:xc="http://www.w3.org/2001/XMLSchema"
+        xmlns:cs="http://www.web_market.ru/spring/wm/categories"
+        targetNamespace="http://www.web_market.ru/spring/wm/categories" elementFormDefault="qualified">
+
+    <xc:element name="getCategoriesByParentCategoryRequest">
+        <xc:complexType>
+            <xc:sequence>
+                <xc:element name="title" type="xc:string"/>
+            </xc:sequence>
+        </xc:complexType>
+    </xc:element>
+
+    <xc:element name="getCategoriesByParentCategoryResponse">
+        <xc:complexType>
+            <xc:sequence>
+                <xc:element name="categories" maxOccurs="unbounded" type="cs:category"/>
+            </xc:sequence>
+        </xc:complexType>
+    </xc:element>
+    
+    <xc:complexType name="category">
+        <xc:sequence>
+            <xc:element name="id" type="xc:long"/>
+            <xc:element name="title" type="xc:string"/>
+        </xc:sequence>
+    </xc:complexType>
+
+</xc:schema>

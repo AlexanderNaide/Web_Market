@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import ru.gb.web_market.entities.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
@@ -26,5 +27,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
             "where c.title like ?1 " +
             "group by m.id")
     List<String> findManufacturer(String cat);
+
+    Optional<Product> getProductByTitle(String title);
+
+
 
 }
