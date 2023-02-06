@@ -15,13 +15,15 @@ public class DoNotThrowBadCredentialsExceptionAspect {
     }
 
     @Around("annotatedMethodsPointcut()")
-    public void aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
+    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
+        Object returnObject = null;
         try {
-            pjp.proceed();
+            returnObject = pjp.proceed();
         } catch (Throwable e) {
             String className = pjp.getTarget().getClass().getName();
             String methodName = pjp.getSignature().getName();
             log.info(String.format("Во время выполнения в классе %s метода %s произошла ошибка e=%s", className, methodName, e.getMessage()));
         }
+        return returnObject;
     }
 }
