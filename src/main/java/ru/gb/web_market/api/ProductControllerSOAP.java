@@ -1,5 +1,6 @@
 package ru.gb.web_market.api;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -34,6 +35,7 @@ public class ProductControllerSOAP {
 
     @PayloadRoot(namespace = NAMESPACE_URL, localPart = "getProductByCategoryRequest")
     @ResponsePayload
+    @Transactional
     public GetProductByCategoryResponse getProductByCategoryResponse(@RequestPayload GetProductByCategoryRequest request){
         GetProductByCategoryResponse response = new GetProductByCategoryResponse();
         productServiceSOAP.getProductByCategory(request).stream().forEach(response.getProducts()::add);

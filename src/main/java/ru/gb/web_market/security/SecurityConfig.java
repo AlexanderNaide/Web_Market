@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/cart/**").authenticated()
 //                .requestMatchers("/api/v1/cart/**").hasAnyRole("USER")
-                .requestMatchers("/ws/**").permitAll()
+//                .requestMatchers("/ws/**").permitAll()
                 .anyRequest().permitAll()
 //                .and().formLogin()
                 .and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
@@ -47,30 +47,13 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        return webSecurity -> webSecurity.ignoring().requestMatchers("/auth/**", "/api/v1/products/**", "/ws/**");
+        return webSecurity -> webSecurity.ignoring().requestMatchers("/auth/**", "/api/v1/products/**", "/ws");
     }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationProvider... providers){
         return new ProviderManager(providers);
     }
-
-
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails user = User.builder()
-//                .username("user")
-//                .password("pass")
-//                .authorities("ADMIN", "MANAGER")
-//                .build();
-//        return new InMemoryUserDetailsManager(user);
-
-//    }
-
-//    @Bean
-//    public AuthenticationProvider authenticationProvider(){
-//        return new StandardAuthenticationProvider();  // для версии без базы данных
-//    }
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){

@@ -6,8 +6,8 @@ import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class DoNotThrowBadCredentialsExceptionAspect {
 
     @Pointcut("@annotation(DoNotThrowBadCredentialsException)")

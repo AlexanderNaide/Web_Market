@@ -8,8 +8,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class TimerAspect {
 
     @Pointcut("@annotation(Timer)")

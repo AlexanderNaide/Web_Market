@@ -12,8 +12,8 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
-@Aspect
-@Component
+//@Aspect
+//@Component
 @Slf4j
 public class CartServiceAspect {
 
