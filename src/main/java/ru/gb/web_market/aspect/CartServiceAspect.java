@@ -77,17 +77,18 @@ public class CartServiceAspect {
     }
 
     @Around("execution (* ru.gb.web_market.services.CartService.dellFromCart(..))")
-    public void aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
+    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
 
         Principal principal = (Principal) pjp.getArgs()[0];
         Long id = (Long) pjp.getArgs()[1];
         log.info(String.format("Пользователь '%s' удаляет товар из корзины с id = '%s'", principal.getName(), id));
-
+        Object returnObject = null;
         try {
             pjp.proceed();
         } catch (Throwable e) {
             log.info(String.format("Во время удаления товара с Id = '%s' из корзины пользователя '%s' произошел сбой: '%s'", id, principal.getName(), e.getMessage()));
         }
+        return returnObject;
     }
 
 
