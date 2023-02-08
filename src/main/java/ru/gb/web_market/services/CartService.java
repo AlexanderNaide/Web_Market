@@ -1,47 +1,43 @@
 package ru.gb.web_market.services;
 
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.gb.web_market.entities.Product;
+import ru.gb.web_market.entities.User;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.security.Principal;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
+    private final UserService userService;
 
-    private final ProductService productService;
-    private Map<Long, Integer> cart;
-
-    @PostConstruct
-    public void init(){
-        this.cart = new LinkedHashMap<>();
+    public Map<Long, Integer> getCart(Principal principal){
+        User user = userService.findByUsername(principal.getName()).orElse(null);
+        assert user != null;
+        return user.getCart();
     }
 
-    public Map<Long, Integer> getMapCart(){
-        return cart;
-    }
+    public void addToCart(Principal principal, Long id, Integer count){
 
-    public void addProduct(Long id, Integer count){
-//        Product product = productService.findById(id).orElse(null);
-        if(cart.containsKey(id)){
-            System.out.println("Корзина продукт содержит - " + id);
-            cart.put(id, count + cart.get(id) > 0 ? count + cart.get(id) : 1);
+        User user = Objects.requireNonNull(userService.findByUsername(principal.getName()).orElse(null));
+        if(user.getCart().containsKey(id)){
+            user.getCart().put(id, count + user.getCart().get(id) > 0 ? count + user.getCart().get(id) : 1);
         } else {
-            System.out.println("Корзина продукт НЕсодержит - " + id);
-            cart.put(id, count);
+            user.getCart().put(id, count);
         }
+        userService.save(user);
+
     }
 
-    public void dellProduct(Long id) {
-//        cart.remove(cart.keySet().stream().filter(p -> Objects.equals(p.getId(), id)).findFirst().get());
-        cart.remove(id);
+    public void dellFromCart(Principal principal, Long id) {
+        User user = Objects.requireNonNull(userService.findByUsername(principal.getName()).orElse(null));
+        user.getCart().remove(id);
+        userService.save(user);
     }
 
-    public int getCount() {
-        return cart.values().stream().reduce(0, Integer::sum);
+    public int getCount(Principal principal) {
+//        return cart.values().stream().reduce(0, Integer::sum);
+        return Objects.requireNonNull(userService.findByUsername(principal.getName()).orElse(null)).getCart().values().stream().reduce(0, Integer::sum);
     }
 }

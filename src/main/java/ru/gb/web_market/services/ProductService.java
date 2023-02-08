@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import ru.gb.web_market.aspect.Timer;
 import ru.gb.web_market.entities.Category;
 import ru.gb.web_market.entities.Manufacturer;
 import ru.gb.web_market.entities.Product;
@@ -18,6 +19,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor // Ломбоковская аннотация, которая инициализирует final поля вместо конструктора с @Autowired
+@Timer
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoriesService categoriesService;
@@ -37,11 +39,6 @@ public class ProductService {
         if(title != null){
             spec = spec.and(ProductSpecifications.titleLike(title)).or(ProductSpecifications.artLike(title));
         }
-//        if(categories != null){
-//            long manId = Long.parseLong(Objects.requireNonNull(Arrays.stream(man.split(",")).findFirst().orElse(null)));
-////            Optional<Category> categoryOptional = categoriesService.findByName(categories);
-//            spec = spec.and(ProductSpecifications.categories(categories));
-//        }
 
         if(subCategories != null){
             long catId = Long.parseLong(Objects.requireNonNull(Arrays.stream(subCategories.split(",")).findFirst().orElse(null)));
@@ -68,26 +65,6 @@ public class ProductService {
 
         return productRepository.findAll(spec, PageRequest.of(page - 1, 10));
     }
-
-//    public List<String> findAllCategories() {
-//        return productRepository.findAllCategories();
-//    }
-
-//    public List<String> findAllSubCategories(String cat) {
-//        return productRepository.findAllSubCategories(cat);
-//    }
-
-//    public List<String> findManufacturer(String categories, String subCategories){
-//        String cat;
-//        if (subCategories != null){
-//            cat = subCategories;
-//        } else if (categories != null) {
-//            cat = categories;
-//        } else {
-//            cat = "%";
-//        }
-//        return productRepository.findManufacturer(cat);
-//    }
 
     public Optional<Product> findById(Long id) {
         return productRepository.findById(id);

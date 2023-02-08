@@ -26,10 +26,6 @@ public class CategoriesService {
         return categoriesRepository.findAllSubCategories(catId);
     }
 
-//    public Optional<Category> findByName(String title){
-//        return categoriesRepository.findFirstByTitle(title);
-//    }
-
     public Optional<Category> findById(long id){
         return categoriesRepository.findById(id);
     }

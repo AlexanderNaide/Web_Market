@@ -114,3 +114,9 @@ CREATE TABLE `order_products` (
   CONSTRAINT `fk_order_productid` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
   CONSTRAINT `fk_orderid` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+#
+# INSERT INTO `users` VALUES (1,'user','$2a$12$RUXIUbQUAjZBlV3XUFDKM.O7l1RzNebLpEHh3BOBkPNMbjQKr5Xxa','us@us.ru',NULL,NULL,'2023-02-01 13:08:59','2023-02-01 13:08:59'),(2,'admin','$2a$12$RUXIUbQUAjZBlV3XUFDKM.O7l1RzNebLpEHh3BOBkPNMbjQKr5Xxa','ad@ad.ru',NULL,NULL,'2023-02-01 13:08:59','2023-02-01 13:08:59');
+#
+# INSERT INTO `roles` VALUES (1,'ROLE_USER'),(2,'ROLE_ADMIN');
+#
+# INSERT INTO `user_roles` VALUES (1,1),(2,1),(2,2);

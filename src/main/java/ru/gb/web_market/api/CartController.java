@@ -10,12 +10,13 @@ import ru.gb.web_market.dto.ProductToCartDto;
 import ru.gb.web_market.services.CartService;
 import ru.gb.web_market.services.ProductService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequiredArgsConstructor // Ломбоковская аннотация, которая инициализирует final поля вместо конструктора с @Autowired
+@RequiredArgsConstructor // Р›РѕРјР±РѕРєРѕРІСЃРєР°СЏ Р°РЅРЅРѕС‚Р°С†РёСЏ, РєРѕС‚РѕСЂР°СЏ РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ final РїРѕР»СЏ РІРјРµСЃС‚Рѕ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° СЃ @Autowired
 @RequestMapping("api/v1/cart")
 public class CartController {
     private final ProductConverter productConverter;
@@ -24,26 +25,24 @@ public class CartController {
 
 
     @GetMapping("/add_to_cart")
-    public void addToCart(@RequestParam Long id, @RequestParam(required = false, defaultValue = "1") Integer count){
-        cartService.addProduct(id, count);
+    public void addToCart(@RequestParam Long id, @RequestParam(required = false, defaultValue = "1") Integer count, Principal principal){
+        cartService.addToCart(principal, id, count);
     }
 
     @GetMapping("/dell_from_cart")
-    public void dellFromCart(@RequestParam Long id){
-        cartService.dellProduct(id);
+    public void dellFromCart(Principal principal, @RequestParam Long id){
+        cartService.dellFromCart(principal, id);
     }
 
     @GetMapping
-    public List<ProductToCartDto> getMapCart(){
-//        return cartService.getMapCart().entrySet().stream().collect(Collectors.toList((entry) -> productConverter.entityToDto(entry.getKey()), Map.Entry::getValue));
-        return cartService.getMapCart().entrySet().stream()
-//                .map(entry -> productConverter.entityToCardDto(entry.getKey(), entry.getValue()))
+    public List<ProductToCartDto> getCart(Principal principal){
+        return cartService.getCart(principal).entrySet().stream()
                 .map(entry -> productConverter.entityToCardDto(Objects.requireNonNull(productService.findById(entry.getKey()).orElse(null)), entry.getValue()))
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/count")
-    public int cartCount(){
-        return cartService.getCount();
+    public int cartCount(Principal principal){
+        return cartService.getCount(principal);
     }
 }
