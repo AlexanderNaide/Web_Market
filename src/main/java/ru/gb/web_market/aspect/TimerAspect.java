@@ -21,7 +21,7 @@ public class TimerAspect {
     }
 
     @Around("annotatedMethodsByTimer() || annotatedClassesByTimer()")
-    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
+    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) throws Throwable {
         String className = pjp.getTarget().getClass().getName();
         String methodName = pjp.getSignature().getName();
         Object returnObj = null;
@@ -32,6 +32,7 @@ public class TimerAspect {
             log.info(String.format("Выполнение метода %s в классе %s заняло %d миллисекунд", methodName, className, finished - started));
         } catch (Throwable e) {
             log.info(String.format("Во время выполнения в классе %s метода %s произошла ошибка e=%s", className, methodName, e.getMessage()));
+            throw e; // - правильно?
         }
         return returnObj;
     }

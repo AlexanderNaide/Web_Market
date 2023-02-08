@@ -15,7 +15,7 @@ public class DoNotThrowBadCredentialsExceptionAspect {
     }
 
     @Around("annotatedMethodsPointcut()")
-    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
+    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) throws Throwable{
         Object returnObject = null;
         try {
             returnObject = pjp.proceed();
@@ -23,6 +23,9 @@ public class DoNotThrowBadCredentialsExceptionAspect {
             String className = pjp.getTarget().getClass().getName();
             String methodName = pjp.getSignature().getName();
             log.info(String.format("Во время выполнения в классе %s метода %s произошла ошибка e=%s", className, methodName, e.getMessage()));
+
+            throw e;
+            // - Вот так Вы имели в виду выкинуть наружу?
         }
         return returnObject;
     }

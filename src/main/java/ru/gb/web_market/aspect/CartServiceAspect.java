@@ -77,7 +77,7 @@ public class CartServiceAspect {
     }
 
     @Around("execution (* ru.gb.web_market.services.CartService.dellFromCart(..))")
-    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
+    public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) throws Throwable{
 
         Principal principal = (Principal) pjp.getArgs()[0];
         Long id = (Long) pjp.getArgs()[1];
@@ -87,6 +87,8 @@ public class CartServiceAspect {
             pjp.proceed();
         } catch (Throwable e) {
             log.info(String.format("Во время удаления товара с Id = '%s' из корзины пользователя '%s' произошел сбой: '%s'", id, principal.getName(), e.getMessage()));
+            throw e;
+            // - Вот так Вы имели в виду выкинуть наружу?
         }
         return returnObject;
     }
