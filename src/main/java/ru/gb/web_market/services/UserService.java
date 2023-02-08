@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.gb.web_market.aspect.DoNotThrowBadCredentialsException;
 import ru.gb.web_market.entities.Role;
 import ru.gb.web_market.entities.User;
 import ru.gb.web_market.repositories.RoleRepository;
@@ -35,6 +36,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     @Transactional
+    @DoNotThrowBadCredentialsException
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 //        User user = findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
         User user = findByUsername(username).orElseThrow(() -> new BadCredentialsException(String.format("Пользователь '%s' отсутствует в базе данных", username)));
