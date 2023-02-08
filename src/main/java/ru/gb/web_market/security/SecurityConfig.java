@@ -47,7 +47,7 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer(){
-        return webSecurity -> webSecurity.ignoring().requestMatchers("/auth/**", "/api/v1/products/**", "/ws");
+        return webSecurity -> webSecurity.ignoring().requestMatchers("/auth/**", "/api/v1/products/**", "/ws/**");
     }
 
     @Bean

@@ -8,8 +8,9 @@
 
 package ru.gb.web_market.soap.categories;
 
-import javax.xml.bind.annotation.XmlRegistry;
+//import javax.xml.bind.annotation.XmlRegistry;
 
+import jakarta.xml.bind.annotation.*;
 
 /**
  * This object contains factory methods for each 

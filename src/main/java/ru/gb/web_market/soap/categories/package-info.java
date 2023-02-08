@@ -5,5 +5,6 @@
 // Generated on: 2023.02.05 at 05:51:45 PM MSK 
 //
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.web_market.ru/spring/wm/categories", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+//@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.web_market.ru/spring/wm/categories", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@jakarta.xml.bind.annotation.XmlSchema(namespace = "http://www.web_market.ru/spring/wm/categories", elementFormDefault = jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package ru.gb.web_market.soap.categories;

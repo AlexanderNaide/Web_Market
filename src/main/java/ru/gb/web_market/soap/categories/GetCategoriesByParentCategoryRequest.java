@@ -8,8 +8,9 @@
 
 package ru.gb.web_market.soap.categories;
 
-import javax.xml.bind.annotation.*;
+//import javax.xml.bind.annotation.*;
 
+import jakarta.xml.bind.annotation.*;
 
 /**
  * <p>Java class for anonymous complex type.
