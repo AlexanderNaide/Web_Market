@@ -4,8 +4,24 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     const contextPathCart = 'http://localhost:8080/api/v1/cart';
     let number = 1;
     let totalNumber;
-    let token = null;
     $scope.modalStatus = null;
+
+    if($localStorage.webmarketUser){
+        try {
+            let jwt = $localStorage.webmarketUser.token;
+            let payload = JSON.parse(atob(jwt.split('.')[1]));
+            let currentTime = parseInt(new Date().getTime() / 1000);
+            if (currentTime > payload.exp){
+                console.log("Время жизни токена истекло");
+                delete $localStorage.webmarketUser;
+                $http.defaults.headers.common.Authorization = '';
+                // $scope.clearUser();
+            } else {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webmarketUser.token;
+            }
+        } catch (e){
+        }
+    }
 
     $scope.updateProducts = function () {
         let min;
@@ -113,9 +129,9 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         $http({
             url: contextPathCart,
             method: 'GET',
-            headers: {
-                Authorization: "Bearer " + token
-            }
+            // headers: {
+            //     Authorization: "Bearer " + token
+            // }
         }).then(function (response) {
             $scope.CardList = response.data;
             $scope.CardTotalSize = $scope.CardList.length;
@@ -133,24 +149,26 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     };
 
     $scope.showCartCount = function () {
-        $http({
-            url: contextPathCart + "/count",
-            method: 'GET',
-            headers: {
-                Authorization: "Bearer " + token
-            }
-        }).then(function (response) {
-            $scope.CardTotalProduct = response.data;
-        });
+        if($localStorage.webmarketUser){
+            $http({
+                url: contextPathCart + "/count",
+                method: 'GET',
+                // headers: {
+                //     Authorization: "Bearer " + token
+                // }
+            }).then(function (response) {
+                $scope.CardTotalProduct = response.data;
+            });
+        }
     };
 
     $scope.addToCart = function (id, count) {
         $http({
             url: contextPathCart + "/add_to_cart",
             method: 'GET',
-            headers: {
-                Authorization: "Bearer " + token
-            },
+            // headers: {
+            //     Authorization: "Bearer " + token
+            // },
             params: {
                 id: id,
                 count: count
@@ -164,9 +182,9 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         $http({
             url: contextPathCart + "/add_to_cart",
             method: 'GET',
-            headers: {
-                Authorization: "Bearer " + token
-            },
+            // headers: {
+            //     Authorization: "Bearer " + token
+            // },
             params: {
                 id: id,
                 count: count
@@ -181,9 +199,9 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         $http({
             url: contextPathCart + "/dell_from_cart",
             method: 'GET',
-            headers: {
-                Authorization: "Bearer " + token
-            },
+            // headers: {
+            //     Authorization: "Bearer " + token
+            // },
             params: {
                 id: id
             }
@@ -276,10 +294,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         $http.post(contextPathAuth + '/token', $scope.auth)
             .then(function (response) {
                 if(response.data.token){
+                    console.log("Токен получен")
                     $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.webUser = {username: $scope.auth.username, token: response.data.token};
-                    $scope.buttonCart();
+                    $localStorage.webmarketUser = {username: $scope.auth.username, token: response.data.token};
+                    // $scope.buttonCart();
                     $('#authRes').click();
+                    $scope.showCartCount();
                 }
             }).catch(function (response) {
             // console.log(response.data.message)
@@ -288,8 +308,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     };
 
     $scope.clearUser = function (){
-        delete $localStorage.webUser;
+        delete $localStorage.webmarketUser;
         $http.defaults.headers.common.Authorization = '';
+    }
+
+    $scope.ifUserLoggedIn = function (){
+        return !!$localStorage.webmarketUser;
     }
 
     // $scope.buttonCartFunction = function () {
@@ -298,20 +322,20 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     //     }
     // };
 
-    $scope.buttonCart = function () {
-        $scope.buttonCartTitle = token === null ? 'Авторизация' : 'Корзина';
-        $scope.buttonTargetClick = token === null ? '#modalAuthentication' : '#exampleModalCart';
-    };
+    // $scope.buttonCart = function () {
+    //     $scope.buttonCartTitle = token === null ? 'Авторизация' : 'Корзина';
+    //     $scope.buttonTargetClick = token === null ? '#modalAuthentication' : '#exampleModalCart';
+    // };
 
-    $scope.visibleButtonAddToCart = function () {
-        return token !== null;
-    };
+    // $scope.visibleButtonAddToCart = function () {
+    //     return token !== null;
+    // };
 
     $scope.filter = null;
     $scope.loadProducts();
     $scope.categories();
     $scope.manufacturer();
-    $scope.buttonCart();
+    $scope.showCartCount();
     $('#sub').prop( 'disabled',true );
 
 });
