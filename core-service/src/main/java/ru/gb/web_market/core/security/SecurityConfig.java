@@ -30,6 +30,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/cart/**").authenticated()
+                .requestMatchers("/orders/**").authenticated()
 //                .requestMatchers("/api/v1/cart/**").hasAnyRole("USER")
                 .anyRequest().permitAll()
 //                .and().formLogin()

@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -30,6 +31,9 @@ public class Order {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+    @Column(name = "status")
+    private OrderStatusEnums status;
+
     @Column(name = "completed_at")
     private LocalDateTime completedAt;
 
@@ -42,9 +46,6 @@ public class Order {
     @Column(name = "info")
     private String info;
 
-    @ManyToMany
-    @JoinTable(name = "order_products",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Collection<Product> products;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> productList;
 }

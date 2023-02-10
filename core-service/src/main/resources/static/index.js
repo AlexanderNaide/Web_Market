@@ -80,8 +80,13 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     $scope.createOrder = function () {
         $http({
             url: "http://localhost:8080/orders/create",
-            method: 'GET'
+            method: 'POST'
         }).then(function (response) {
+            $scope.CardList = null;
+            $('#cartRes').click();
+            alert("Заказ оформлен успешно")
+        }).catch(function (response){
+            alert(response.data.message)
         });
     };
 

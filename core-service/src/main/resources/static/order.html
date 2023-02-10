@@ -14,9 +14,9 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
-    <script src="index.js"></script>
+    <script src="order.js"></script>
 
-    <title>Boot HomeWork</title>
+    <title>Список заказов</title>
 </head>
 
 
@@ -25,7 +25,7 @@
 <div class="container" ng-controller="orderController">
 
     <div class="row align-items-start" style="height: 140px; padding: 30px;">
-            <h1>Личный кабинет</h1>
+            <h1>Список заказов</h1>
     </div>
 
     <div class="row align-items-start">
@@ -33,15 +33,13 @@
             <table class="table table-hover">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Дата</th>
                     <th>Статус</th>
-                    <th>Стоимость</th>
+                    <th>Сумма</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr ng-repeat="o in OrderList">
-                    <td ng-click="" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{o.id}}</td>
                     <td ng-click="" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{o.data}}</td>
                     <td ng-click="" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{o.status}}</td>
                     <td ng-click="" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{o.totalPrice}}</td>

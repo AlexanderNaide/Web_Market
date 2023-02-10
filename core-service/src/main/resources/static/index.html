@@ -219,8 +219,8 @@
                     <h6>Итого</h6>
                     <label>Кол-во позиций: {{CardTotalSize}},    Кол-во товаров: {{CardTotalProduct}}, </label>
                     <h6>Сумма: {{CardTotalSumm}}</h6>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" ng-click="">Оформить</button>
+                    <button id="cartRes"type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" ng-click="createOrder()">Оформить</button>
                 </div>
             </div>
         </div>
