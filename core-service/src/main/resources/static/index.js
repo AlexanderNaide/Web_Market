@@ -80,7 +80,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     $scope.createOrder = function () {
         $http({
             url: "http://localhost:8080/orders/create",
-            method: 'POST'
+            method: 'PUT'
         }).then(function (response) {
             $scope.CardList = null;
             $('#cartRes').click();

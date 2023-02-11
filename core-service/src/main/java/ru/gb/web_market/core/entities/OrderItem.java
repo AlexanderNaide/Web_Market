@@ -39,10 +39,14 @@ public class OrderItem {
     @Column(name = "purchase_price", nullable = false)
     private Double price;
 
+    @Column(name = "total_price", nullable = false)
+    private Double totalPrice;
+
     public OrderItem(Order order, Product product, int count) {
         this.order = order;
         this.product = product;
         this.count = count;
-        this.price = product.getPrice() * count;
+        this.price = product.getPrice();
+        this.totalPrice = price * count;
     }
 }

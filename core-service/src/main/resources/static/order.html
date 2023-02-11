@@ -16,7 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js"></script>
     <script src="order.js"></script>
 
-    <title>Список заказов</title>
+    <title>Личный кабинет</title>
 </head>
 
 
@@ -25,11 +25,37 @@
 <div class="container" ng-controller="orderController">
 
     <div class="row align-items-start" style="height: 140px; padding: 30px;">
-            <h1>Список заказов</h1>
+            <h1>Личный кабинет</h1>
     </div>
 
     <div class="row align-items-start">
-        <div>
+        <div class="col-3">
+            <h4>Какие-то еще функции</h4>
+
+        </div>
+        <div class="col-9">
+
+            <nav class="navbar bg-light">
+                <div class="container-fluid">
+                    <div class="col-5">
+                        <a class="navbar-brand"> <h3>Список заказов</h3></a>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-3" align="right">
+                        <svg ng-click="redirectHome()" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-person-fill-x" viewBox="0 0 16 16" cursor="pointer" style="margin-right: 10px">
+                            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm-9 8c0 1 1 1 1 1h5.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.544-3.393C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4Z"/>
+                            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708Z"/>
+                        </svg>
+
+                        <svg ng-click="clearUser()" xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16" cursor="pointer" style="margin-right: 10px">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
+                    </div>
+                </div>
+            </nav>
+
             <table class="table table-hover">
                 <thead>
                 <tr>
@@ -40,100 +66,48 @@
                 </thead>
                 <tbody>
                 <tr ng-repeat="o in OrderList">
-                    <td ng-click="" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{o.data}}</td>
-                    <td ng-click="" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{o.status}}</td>
-                    <td ng-click="" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">{{o.totalPrice}}</td>
+                    <td ng-click="getOrderById(o.id)" data-bs-toggle="modal" data-bs-target="#exampleModalOrder">{{o.createdAt}}</td>
+                    <td ng-click="getOrderById(o.id)" data-bs-toggle="modal" data-bs-target="#exampleModalOrder">{{o.status}}</td>
+                    <td ng-click="getOrderById(o.id)" data-bs-toggle="modal" data-bs-target="#exampleModalOrder">{{o.totalPrice}}</td>
                 </tr>
                 </tbody>
             </table>
 
-<!--            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item {{first}}"><a class="page-link" ng-click="pageStart()">1</a></li>
-                    <li class="page-item {{first10}}"><a class="page-link" ng-click="pageClick(-10)">-10</a></li>
-                    <li class="page-item {{first}}"><a class="page-link" ng-click="pageClick(-1)">-1</a></li>
-                    <li class="page-item active"><a class="page-link">{{page1}}</a></li>
-                    <li class="page-item {{last}}"><a class="page-link" ng-click="pageClick(+1)">+1</a></li>
-                    <li class="page-item {{last10}}"><a class="page-link" ng-click="pageClick(+10)">+10</a></li>
-                    <li class="page-item {{last}}"><a class="page-link" ng-click="pageFinish()">{{totalNumber}}</a></li>
-                </ul>
-            </nav>-->
         </div>
     </div>
 
-
-<!--    <div class="modal fade" id="exampleModalCenter" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <form id="form" novalidate>
-                    <div class="modal-header">
-                        <label class="modal-title" id="exampleModalCenterTitle">Информация о товаре</label>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group mb-3">
-                            <h5 class="modal-title">{{Product.title}}</h5>
-                            <label>Артикул: {{Product.article}}</label>
-                            <h6>Цена: {{Product.price}}руб.</h6>
-                            <label>Производитель: {{Product.manufacturer}}</label>
-                        </div>
-                        <div class="form-group mb-3">
-                            <h6>Описание:</h6>
-                            <div ng-repeat="l in ProductDescription">{{l}} <br></div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    </div>
-                </form>
+    <div class="modal fade" id="exampleModalOrder" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div style="margin-left: 12px; margin-top: 30px; margin-bottom: 8px">
+                <h6>Оформлен: {{currentOrder.createdAt}},    Текущий статус: {{currentOrder.status}} </h6>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat='p in currentOrder.productList'>
+                    <td>{{p.product}}</td>
+                    <td>{{p.price}}</td>
+                    <td>{{p.count}}</td>
+                    <td>{{p.totalPrice}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="modal-footer">
+                <h6>Сумма заказа: {{currentOrder.fullPrice}}</h6>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
             </div>
         </div>
-    </div>-->
-
-
-<!--    <div class="modal fade" id="exampleModalCart" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Наименование</th>
-                        <th>Артикул</th>
-                        <th>Цена</th>
-                        <th>Количество</th>
-                        <th>Сумма</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat='p in CardList'>
-                        <td>{{p.id}}</td>
-                        <td>{{p.title}}</td>
-                        <td>{{p.article}}</td>
-                        <td>{{p.price}}</td>
-                        <td>
-                            <label ng-click="setCountToCart(p.id, -1)" >-</label>
-                            {{p.count}}
-                            <label ng-click="setCountToCart(p.id, 1)" >+</label>
-                        </td>
-                        <td>{{p.price * p.count}}</td>
-                        <td>
-                            <svg ng-click="deleteProductFromCart(p.id)" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3" viewBox="0 0 20 20">
-                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                            </svg>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <div class="modal-footer">
-                    <h6>Итого</h6>
-                    <label>Кол-во позиций: {{CardTotalSize}},    Кол-во товаров: {{CardTotalProduct}}, </label>
-                    <h6>Сумма: {{CardTotalSumm}}</h6>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                </div>
-            </div>
-        </div>
-    </div>-->
+    </div>
+</div>
 
 </div>
 
