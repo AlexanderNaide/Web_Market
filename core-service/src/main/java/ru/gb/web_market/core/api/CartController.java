@@ -14,7 +14,9 @@ import ru.gb.web_market.core.services.CartService;
 import ru.gb.web_market.core.services.UserService;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,12 +43,18 @@ public class CartController {
     public List<ProductToCartDto> getCart(Principal principal){
         User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new BadCredentialsException(String.format("Пользователь '%s' отсутствует в базе данных", principal.getName())));
         CartDto cartDto = new CartDto();
-        user.getCart().forEach((k, v) -> {
-            ProductToCartDto itemDto = new ProductToCartDto();
-            itemDto.setId(k);
-            itemDto.setCount(v);
-            cartDto.getCart().add(itemDto);
-        });
+        cartDto.setCart(user.getCart().entrySet().stream().map(e -> {
+            ProductToCartDto dto = new ProductToCartDto();
+            dto.setId(e.getKey());
+            dto.setCount(e.getValue());
+            return dto;
+        }).collect(Collectors.toList()));
+//        user.getCart().forEach((k, v) -> {
+//            ProductToCartDto itemDto = new ProductToCartDto();
+//            itemDto.setId(k);
+//            itemDto.setCount(v);
+//            cartDto.getCart().add(itemDto);
+//        });
         return productIntegration.updateCart(cartDto).getCart();
     }
 

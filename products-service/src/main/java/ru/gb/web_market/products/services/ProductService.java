@@ -5,7 +5,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import ru.gb.web_market.api.dto.CartDto;
+import ru.gb.web_market.api.dto.OrderFullDto;
+import ru.gb.web_market.api.dto.ProductFullDto;
 import ru.gb.web_market.products.repositories.specifications.ProductSpecifications;
 import ru.gb.web_market.products.entities.Category;
 import ru.gb.web_market.products.entities.Manufacturer;
@@ -81,5 +84,10 @@ public class ProductService {
         });
         cartDto.getCart().removeIf(e -> e.getId() == 0L);
         return cartDto;
+    }
+
+    public OrderFullDto updateOrderListFromOrder(OrderFullDto orderFullDto){
+        orderFullDto.getProductList().forEach(e -> e.setProduct(Objects.requireNonNull(productRepository.findById(e.getProductId()).orElse(null)).getTitle()));
+        return orderFullDto;
     }
 }

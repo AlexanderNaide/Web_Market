@@ -75,6 +75,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             method: 'PUT'
         }).then(function (response) {
             $scope.CardList = null;
+            $scope.CardTotalProduct = 0;
             $('#cartRes').click();
             alert("Заказ оформлен успешно")
         }).catch(function (response){

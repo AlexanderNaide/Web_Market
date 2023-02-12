@@ -1,7 +1,6 @@
 package ru.gb.web_market.core.integrations;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.gb.web_market.api.dto.*;
@@ -19,18 +18,16 @@ public class ProductServiceIntegration {
     }
 
     public CartDto updateCart(CartDto cart){
-        return restTemplate.getForObject("http://localhost:8084/market-products/api/v1/products/update_cart", CartDto.class, cart);
+        return restTemplate.postForEntity("http://localhost:8084/market-products/api/v1/products/update_cart", cart, CartDto.class).getBody();
     }
 
-    public ListDto findCategory(Long id) {
-        return restTemplate.getForObject("http://localhost:8084/market-products/api/v1/categories", ListDto.class, id);
+    public OrderFullDto updateOrderList(OrderFullDto orderFullDto){
+        return restTemplate.postForEntity("http://localhost:8084/market-products/api/v1/products/update_order_list", orderFullDto, OrderFullDto.class).getBody();
     }
 
-    public ListDto findManufacturer(CategoryDto cat, CategoryDto subCat) {
-        return restTemplate.getForObject("http://localhost:8084/market-products/api/v1/manufacturers", ListDto.class, cat, subCat);
-    }
 
-    public Page<ProductDto> findCom(Double min, Double max, String val, String cat, String sub_cat, String man, Integer page) {
-        return restTemplate.getForObject("http://localhost:8084/market-products/api/v1/products/", Page.class, min, max, val, cat, sub_cat, man, page);
-    }
+
+
+
+
 }
