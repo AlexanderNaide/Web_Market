@@ -5,11 +5,8 @@ import jakarta.persistence.*;
 import jdk.jfr.Unsigned;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
-import java.util.List;
+import ru.gb.web_market.api.dto.ProductDto;
+import ru.gb.web_market.api.dto.ProductFullDto;
 
 @Entity
 @Data
@@ -28,10 +25,10 @@ public class OrderItem {
     @Unsigned
     private Order order;
 
-    @OneToOne
+//    @OneToOne
     @Nonnull
     @Unsigned
-    private Product product;
+    private Long productId;
 
     @Column(name = "count", nullable = false)
     private int count;
@@ -42,11 +39,11 @@ public class OrderItem {
     @Column(name = "total_price", nullable = false)
     private Double totalPrice;
 
-    public OrderItem(Order order, Product product, int count) {
+    public OrderItem(Order order, ProductFullDto productDto, int count) {
         this.order = order;
-        this.product = product;
+        this.productId = productDto.getId();
         this.count = count;
-        this.price = product.getPrice();
+        this.price = productDto.getPrice();
         this.totalPrice = price * count;
     }
 }

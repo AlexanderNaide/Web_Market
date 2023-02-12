@@ -3,14 +3,8 @@ package ru.gb.web_market.core.services;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.gb.web_market.core.entities.Category;
 import ru.gb.web_market.core.entities.OrderItem;
 import ru.gb.web_market.core.repositories.OrderItemRepository;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

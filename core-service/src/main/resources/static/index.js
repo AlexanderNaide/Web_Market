@@ -1,5 +1,6 @@
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
-    const contextPath = 'http://localhost:8080/api/v1';
+    // const contextPath = 'http://localhost:8080';
+    const contextPathProducts = 'http://localhost:8084/market-products';
     const contextPathAuth = 'http://localhost:8080/auth';
     const contextPathCart = 'http://localhost:8080/api/v1/cart';
     let number = 1;
@@ -34,12 +35,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
             bF = true;
             min = $scope.filter.min !== null ? $scope.filter.min : null;
             max = $scope.filter.max !== null ? $scope.filter.max : null;
-            cat = $scope.filter.cat !== "Все" ? $scope.filter.cat : null;
-            sub_cat = $scope.filter.sub_cat !== "Все" ? $scope.filter.sub_cat : null;
+            cat = $scope.filter.cat !== "Все" ? $scope.filter.cat.id : null;
+            sub_cat = $scope.filter.sub_cat !== "Все" ? $scope.filter.sub_cat.id : null;
             man = $scope.filter.man !== "Все" ? $scope.filter.man : null;
         }
         $http({
-            url: contextPath + "/products",
+            url: contextPathProducts + "/api/v1/products",
             method: 'POST',
             params: {
                 val: $scope.value !== null ? $scope.value : null,
@@ -59,21 +60,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.loadProducts = function () {
         $http({
-            url: contextPath + "/products",
+            url: contextPathProducts + "/api/v1/products",
             method: 'GET'
         }).then(function (response) {
             $scope.pagination(response);
             $scope.ProductsList = response.data.content;
             // console.log(response.data)
-        });
-    };
-
-    $scope.categories = function () {
-        $http({
-            url: contextPath + "/categories",
-            method: 'GET'
-        }).then(function (response) {
-            $scope.CategoriesList = response.data;
         });
     };
 
@@ -92,7 +84,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.getProduct = function (id) {
         $http({
-            url: contextPath + "/products/" + id,
+            url: contextPathProducts + "/api/v1/products/" + id,
             // url: contextPath + "/" + 5965165165,
             method: 'GET'
         }).then(function (response) {
@@ -114,11 +106,11 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         let cat;
         let sub_cat;
         if ($scope.filter !== null){
-            cat = $scope.filter.cat !== "Все" ? $scope.filter.cat : null;
-            sub_cat = $scope.filter.sub_cat !== "Все" ? $scope.filter.sub_cat : null;
+            cat = $scope.filter.cat !== "Все" ? $scope.filter.cat.id : null;
+            sub_cat = $scope.filter.sub_cat !== "Все" ? $scope.filter.sub_cat.id : null;
         }
         $http({
-            url: contextPath + "/manufacturers",
+            url: contextPathProducts + "/api/v1/manufacturers",
             method: 'GET',
             params: {
                 cat: cat,
@@ -221,20 +213,49 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         $scope.manufacturer();
     };
 
+    $scope.categories = function () {
+        $http({
+            url: contextPathProducts + "/api/v1/categories",
+            method: 'POST'
+        }).then(function (response) {
+            // console.log(response.data);
+            $scope.CategoriesList = response.data;
+        });
+    };
+
+    // $scope.catForm = function () {
+    //     if($scope.filter !== null && $scope.filter.cat !== null){
+    //         $('#sub').prop('disabled', false);
+    //         $http.post(contextPath + "/api/v1/products/test", $scope.filter.cat).then(function (response) {
+    //             if(response.data.length === 0){
+    //                 $scope.SubCategoriesList = null;
+    //                 $('#sub').prop( 'disabled',true );
+    //             } else {
+    //                 console.log(response.data);
+    //                 $scope.SubCategoriesList = response.data;
+    //             }
+    //         });
+    //     } else {
+    //         $scope.SubCategoriesList = null;
+    //         $('#sub').prop( 'disabled',true );
+    //     }
+    // };
+
     $scope.catForm = function () {
         if($scope.filter !== null && $scope.filter.cat !== null){
             $('#sub').prop('disabled', false);
             $http({
-                url: contextPath + "/categories/sub",
-                method: 'GET',
+                url: contextPathProducts + "/api/v1/categories",
+                method: 'POST',
                 params: {
-                    cat: $scope.filter.cat
+                    cat: $scope.filter.cat.id
                 }
             }).then(function (response) {
                 if(response.data.length === 0){
                     $scope.SubCategoriesList = null;
                     $('#sub').prop( 'disabled',true );
                 } else {
+                    // console.log(response.data);
                     $scope.SubCategoriesList = response.data;
                 }
             });

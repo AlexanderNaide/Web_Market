@@ -2,12 +2,10 @@ package ru.gb.web_market.core.services;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import ru.gb.web_market.core.dto.OrderListDto;
+import ru.gb.web_market.api.exception.ResourceNotFoundException;
 import ru.gb.web_market.core.entities.*;
-import ru.gb.web_market.core.exceptions.ResourceNotFoundException;
-import ru.gb.web_market.core.repositories.CategoriesRepository;
+import ru.gb.web_market.core.integrations.ProductServiceIntegration;
 import ru.gb.web_market.core.repositories.OrderRepository;
 
 import java.security.Principal;
@@ -24,7 +22,9 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderItemService orderItemService;
     private final UserService userService;
-    private final ProductService productService;
+
+    private final ProductServiceIntegration serviceIntegration;
+//    private final ProductService productService;
 
 //    public List<String> findAllCategories() {
 //        return categoriesRepository.findAllCategories();
@@ -55,7 +55,8 @@ public class OrderService {
             order.setHistory(order.getStatus().getStatus() + " - " + formatter.format(order.getCreatedAt()));
             Map<Long, Integer> cart = user.getCart();
             cart.forEach((e, c) -> {
-                OrderItem item = new OrderItem(order, productService.findById(e).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден в базе данных товаров, id:" + e)), c);
+//                OrderItem item = new OrderItem(order, productService.findById(e).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден в базе данных товаров, id:" + e)), c);
+                OrderItem item = new OrderItem(order, serviceIntegration.getProductById(e).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден в базе данных товаров, id:" + e)), c);
                 orderItemService.Save(item);
             });
             user.getCart().clear();
