@@ -1,28 +1,24 @@
-package ru.gb.web_market.core.api;
+package ru.gb.web_market.auth.controllers;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import ru.gb.web_market.core.services.JwtService;
+import ru.gb.web_market.auth.entities.AuthRequest;
+import ru.gb.web_market.auth.entities.AuthResponse;
+import ru.gb.web_market.auth.services.JwtService;
 
 @Slf4j
 @RestController
-@RequestMapping("api/v1/auth")
+@RequestMapping("/api/v1/")
+@RequiredArgsConstructor
 @CrossOrigin("*")
 public class AuthController {
-
-    private AuthenticationManager authenticationManager;
-    private JwtService jwtService;
-
-    @Autowired
-    public void setAuthenticationManager(AuthenticationManager authenticationManager, JwtService jwtService) {
-        this.authenticationManager = authenticationManager;
-        this.jwtService = jwtService;
-    }
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
     @PostMapping("/token")
     public AuthResponse token(@RequestBody AuthRequest request){

@@ -23,14 +23,11 @@ spring:
     sql-dialect: org.hibernate.dialect.MySQLDialect
 
 server:
-  port: 8081
+  port: 8083
   servlet:
-    context-path: /market-core
+    context-path: /market-auth
 
-integrations:
-  product-service:
-    url: "http://localhost:8084/market-products"
-    read-timeout: 10000
-    write-timeout: 5000
-    connect-timeout: 5000
+jwt:
+  secret: skljghiklk*/*h*mdbbKJH0832dfdlgb645dsrfg4234HGU5+6/56SEDKJjhb3hg
+  expire-time: PT5M
 
