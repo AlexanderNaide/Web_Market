@@ -2,10 +2,7 @@ package ru.gb.web_market.core.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.gb.web_market.api.dto.CartDto;
 import ru.gb.web_market.api.dto.ProductToCartDto;
 import ru.gb.web_market.core.entities.User;
@@ -21,6 +18,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/cart")
+@CrossOrigin("*")
 public class CartController {
     private final CartService cartService;
 

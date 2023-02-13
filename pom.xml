@@ -9,6 +9,7 @@
         <module>cart-service</module>
         <module>products-service</module>
         <module>api</module>
+        <module>front-service</module>
     </modules>
 
     <groupId>ru.gb</groupId>

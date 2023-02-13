@@ -56,7 +56,8 @@ public class OrderService {
             Map<Long, Integer> cart = user.getCart();
             cart.forEach((e, c) -> {
 //                OrderItem item = new OrderItem(order, productService.findById(e).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден в базе данных товаров, id:" + e)), c);
-                OrderItem item = new OrderItem(order, serviceIntegration.getProductById(e).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден в базе данных товаров, id:" + e)), c);
+//                OrderItem item = new OrderItem(order, serviceIntegration.getProductById(e).orElseThrow(() -> new ResourceNotFoundException("Продукт не найден в базе данных товаров, id:" + e)), c);
+                OrderItem item = new OrderItem(order, serviceIntegration.getProductById(e), c);
                 orderItemService.Save(item);
             });
             user.getCart().clear();

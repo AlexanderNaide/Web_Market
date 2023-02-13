@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.reactive.config.CorsRegistry;
 import ru.gb.web_market.core.api.MainFilter;
 import ru.gb.web_market.core.services.UserService;
 
@@ -31,8 +32,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(MainFilter filter, HttpSecurity http) throws Exception{
         return http
+                .cors()
+                .and()
                 .csrf().disable()//csrf нужна для MVC но бесполезна для REST
-                .cors().disable()//cors нужна, чтобы фильтровать запросы по источникам запросов
+//                .cors().disable()//cors нужна, чтобы фильтровать запросы по источникам запросов
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/cart/**").authenticated()
                 .requestMatchers("/orders/**").authenticated()
