@@ -1,27 +1,32 @@
 package ru.gb.web_market.core.api;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.gb.web_market.core.converters.ProductConverter;
-import ru.gb.web_market.core.dto.ProductToCartDto;
+import ru.gb.web_market.api.dto.CartDto;
+import ru.gb.web_market.api.dto.ProductToCartDto;
+import ru.gb.web_market.core.entities.User;
+import ru.gb.web_market.core.integrations.ProductServiceIntegration;
 import ru.gb.web_market.core.services.CartService;
-import ru.gb.web_market.core.services.ProductService;
+import ru.gb.web_market.core.services.UserService;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
-@RequiredArgsConstructor // Ломбоковская аннотация, которая инициализирует final поля вместо конструктора с @Autowired
+@RequiredArgsConstructor
 @RequestMapping("api/v1/cart")
 public class CartController {
-    private final ProductConverter productConverter;
     private final CartService cartService;
-    private final ProductService productService;
+
+    private final ProductServiceIntegration productIntegration;
+
+    private final UserService userService;
 
 
     @GetMapping("/add_to_cart")
@@ -36,9 +41,21 @@ public class CartController {
 
     @GetMapping
     public List<ProductToCartDto> getCart(Principal principal){
-        return cartService.getCart(principal).entrySet().stream()
-                .map(entry -> productConverter.entityToCardDto(Objects.requireNonNull(productService.findById(entry.getKey()).orElse(null)), entry.getValue()))
-                .collect(Collectors.toList());
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new BadCredentialsException(String.format("Пользователь '%s' отсутствует в базе данных", principal.getName())));
+        CartDto cartDto = new CartDto();
+        cartDto.setCart(user.getCart().entrySet().stream().map(e -> {
+            ProductToCartDto dto = new ProductToCartDto();
+            dto.setId(e.getKey());
+            dto.setCount(e.getValue());
+            return dto;
+        }).collect(Collectors.toList()));
+//        user.getCart().forEach((k, v) -> {
+//            ProductToCartDto itemDto = new ProductToCartDto();
+//            itemDto.setId(k);
+//            itemDto.setCount(v);
+//            cartDto.getCart().add(itemDto);
+//        });
+        return productIntegration.updateCart(cartDto).getCart();
     }
 
     @GetMapping("/count")

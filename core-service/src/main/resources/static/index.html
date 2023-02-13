@@ -37,14 +37,16 @@
 
                 <label> Категория
 <!--                    <select name="cat" ng-options="cat for cat in CategoriesList" ng-change="catForm()" ng-model="filter.cat" class="form-control" style="margin-bottom: 30px">-->
-                    <select name="cat" ng-options="cat.split(',').pop() for cat in CategoriesList" ng-change="catForm()" ng-model="filter.cat" class="form-control" style="margin-bottom: 30px">
+<!--                    <select name="cat" ng-options="cat.split(',').pop() for cat in CategoriesList" ng-change="catForm()" ng-model="filter.cat" class="form-control" style="margin-bottom: 30px">-->
+                    <select name="cat" ng-options="cat.title for cat in CategoriesList" ng-change="catForm()" ng-model="filter.cat" class="form-control" style="margin-bottom: 30px">
                         <option value="">Все</option>
                     </select>
                 </label>
 
                 <label> Подкатегория
 <!--                    <select id="sub" name="sub_cat" ng-options="sub_cat for sub_cat in SubCategoriesList" ng-change="manufacturer()" ng-model="filter.sub_cat" class="form-control" style="margin-bottom: 30px">-->
-                    <select id="sub" name="sub_cat" ng-options="sub_cat.split(',').pop() for sub_cat in SubCategoriesList" ng-change="manufacturer()" ng-model="filter.sub_cat" class="form-control" style="margin-bottom: 30px">
+<!--                    <select id="sub" name="sub_cat" ng-options="sub_cat.split(',').pop() for sub_cat in SubCategoriesList" ng-change="manufacturer()" ng-model="filter.sub_cat" class="form-control" style="margin-bottom: 30px">-->
+                    <select id="sub" name="sub_cat" ng-options="sub_cat.title for sub_cat in SubCategoriesList" ng-change="manufacturer()" ng-model="filter.sub_cat" class="form-control" style="margin-bottom: 30px">
                         <option value="">Все</option>
                     </select>
                 </label>
