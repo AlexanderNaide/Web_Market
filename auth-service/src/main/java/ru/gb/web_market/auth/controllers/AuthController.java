@@ -15,7 +15,7 @@ import ru.gb.web_market.auth.services.JwtService;
 @RestController
 @RequestMapping("/api/v1/")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;

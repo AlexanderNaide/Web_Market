@@ -4,8 +4,8 @@ spring:
     url: jdbc:mysql://localhost:3306/web_market_db?createDatabaseIfNotExist=true
 #    url: jdbc:mysql://localhost:3306/dump_web_market_db?createDatabaseIfNotExist=true
     username: root
-#    password: 6830
-    password: 312808895
+    password: 6830 # работа
+    #    password: 312808895 # дом
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -30,4 +30,11 @@ server:
 jwt:
   secret: skljghiklk*/*h*mdbbKJH0832dfdlgb645dsrfg4234HGU5+6/56SEDKJjhb3hg
   expire-time: PT5M
+
+integrations:
+  product-service:
+    url: "http://localhost:8084/market-products"
+    read-timeout: 10000
+    write-timeout: 5000
+    connect-timeout: 5000
 

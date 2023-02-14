@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
+
 @Component
 public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Config> {
     @Autowired
@@ -24,6 +26,14 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
+
+            System.out.println("\n\nПопали в Gateway:\n");
+            System.out.println("URL:");
+            System.out.println(request.getPath());
+            System.out.println("Parameters:");
+            request.getQueryParams().forEach((a, e) -> System.out.println( a + " " + e));
+            System.out.println("Headers:");
+            request.getHeaders().forEach((a, e) -> System.out.println( a + " " + e));
 
             if (request.getHeaders().containsKey("username")) {
                 return this.onError(exchange, "Invalid header username", HttpStatus.BAD_REQUEST);

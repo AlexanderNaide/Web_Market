@@ -10,23 +10,21 @@ import ru.gb.web_market.core.entities.OrderItem;
 import ru.gb.web_market.core.integrations.ProductServiceIntegration;
 import ru.gb.web_market.core.services.OrderService;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class OrderController {
 
     private final OrderService orderService;
     private final ProductServiceIntegration productIntegration;
-
     private final OrderConverter orderConverter;
 
     @GetMapping
-    public List<OrderListDto> findOrderList(Principal principal){
-        return orderService.findOrderList(principal).stream()
+    public List<OrderListDto> findOrderList(@RequestHeader String username){
+        return orderService.findOrderList(username).stream()
                 .map(e -> new OrderListDto(
                         e.getId(),
                         e.getCreatedAt(),
@@ -38,9 +36,9 @@ public class OrderController {
 
     // https://stackoverflow.com/questions/19468209/spring-security-configuration-http-403-error
 
-    @PutMapping ("/create")
-    public void createdOrder(Principal principal){
-        orderService.createdOrder(principal);
+    @GetMapping ("/create")
+    public void createdOrder(@RequestHeader String username){
+        orderService.createdOrder(username);
     }
 
     @GetMapping("/{id}")

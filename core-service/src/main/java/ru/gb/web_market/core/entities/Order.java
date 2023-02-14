@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+
+import static java.time.format.DateTimeFormatter.ofLocalizedDateTime;
 
 @Entity
 @Data
@@ -22,10 +25,8 @@ public class Order {
     @Unsigned
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @Unsigned
-    private User user;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -48,4 +49,16 @@ public class Order {
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> productList;
+
+
+    public void setStatus(OrderStatusEnums status) {
+        DateTimeFormatter formatter = ofLocalizedDateTime(FormatStyle.SHORT);
+        LocalDateTime current = LocalDateTime.now();
+        if (history == null){
+            history = status.getStatus() + " - " + formatter.format(current);
+        } else {
+            history = history + "<->" + status.getStatus() + " - " + formatter.format(current);
+        }
+        this.status = status;
+    }
 }

@@ -1,4 +1,4 @@
-package ru.gb.web_market.core.entities;
+package backupSecurityFiles.user;
 
 import jakarta.persistence.*;
 import jdk.jfr.Unsigned;

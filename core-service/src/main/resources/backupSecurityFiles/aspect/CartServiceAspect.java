@@ -1,4 +1,4 @@
-package ru.gb.web_market.core.aspect;
+package backupSecurityFiles.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -40,13 +40,13 @@ public class CartServiceAspect {
     // Object returnObject = pjp.proceed(); // так возвращается то, что метод возвращает в return
 
 
-    @Before("execution (* ru.gb.web_market.core.services.CartService.getCart(..))")
+    @Before("execution (* ru.gb.web_market.auth.services.CartService.getCart(..))")
     public void beforeCartServiceGetCart(JoinPoint jp){
         Principal principal = (Principal) jp.getArgs()[0];
         log.info(String.format("Пользователь '%s' запросил корзину", principal.getName()));
     }
 
-    @After("execution (* ru.gb.web_market.core.services.CartService.addToCart(..))")
+    @After("execution (* ru.gb.web_market.auth.services.CartService.addToCart(..))")
     public void afterCartServiceAddToCart(JoinPoint jp) {
         Principal principal = (Principal) jp.getArgs()[0];
         Long id = (Long) jp.getArgs()[1];
@@ -61,7 +61,7 @@ public class CartServiceAspect {
 
 
     // Общие Pointcut можно вынести в отдельный метод:
-    @Pointcut("execution (* ru.gb.web_market.core.services.CartService.addToCart(..))")
+    @Pointcut("execution (* ru.gb.web_market.auth.services.CartService.addToCart(..))")
     public void cartServiceAfterCartServiceAddToCart(){
     }
 
@@ -74,7 +74,7 @@ public class CartServiceAspect {
         log.info(String.format("Пользователь '%s' собирается добавить в корзину товар с id = '%s' в количестве '%d'", principal.getName(), id, count));
     }
 
-    @Around("execution (* ru.gb.web_market.core.services.CartService.dellFromCart(..))")
+    @Around("execution (* ru.gb.web_market.auth.services.CartService.dellFromCart(..))")
     public Object aroundCartServiceDellFromCart(ProceedingJoinPoint pjp) {
 
         Principal principal = (Principal) pjp.getArgs()[0];

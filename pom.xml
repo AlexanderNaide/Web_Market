@@ -6,7 +6,6 @@
 
     <modules>
         <module>core-service</module>
-        <module>cart-service</module>
         <module>products-service</module>
         <module>api</module>
         <module>front-service</module>

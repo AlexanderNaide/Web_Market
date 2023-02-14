@@ -21,7 +21,8 @@ public class MainFilter extends OncePerRequestFilter/*implements Filter*/ {
         System.out.println(request.getRequestURI());
         System.out.println("Parameters:");
         request.getParameterMap().forEach((a, e) -> System.out.println( a + " " + Arrays.toString(e)));
-
+        System.out.println("Header 'username'");
+        request.getHeader("username");
         response.setCharacterEncoding("UTF-8");
 
         filterChain.doFilter(request, response);

@@ -1,4 +1,4 @@
-package ru.gb.web_market.core.aspect;
+package backupSecurityFiles.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

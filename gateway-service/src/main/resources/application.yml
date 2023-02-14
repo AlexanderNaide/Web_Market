@@ -1,5 +1,5 @@
 server:
-  port: 8888
+  port: 8066
 
 spring:
   application:
@@ -39,8 +39,6 @@ spring:
             - StripPrefix=1
             - PrefixPath=/market-auth
             - JwtAuthFilter
-
-#   -- сначало выпилить сервис аутонтификации
 
 jwt:
   secret: skljghiklk*/*h*mdbbKJH0832dfdlgb645dsrfg4234HGU5+6/56SEDKJjhb3hg

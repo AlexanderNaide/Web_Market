@@ -1,5 +1,5 @@
 angular.module('app', ['ngStorage']).controller('orderController', function ($scope, $http, $localStorage) {
-    const contextPathCore = 'http://localhost:8888/market-core/api/v1';
+    const contextPathCore = 'http://localhost:8066/core/api/v1';
 
     if($localStorage.webmarketUser){
         try {

@@ -1,4 +1,4 @@
-package ru.gb.web_market.core.api;
+package backupSecurityFiles.security;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import ru.gb.web_market.core.services.JwtService;
 @Slf4j
 @RestController
 @RequestMapping("api/v1/auth")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class AuthController {
 
     private AuthenticationManager authenticationManager;

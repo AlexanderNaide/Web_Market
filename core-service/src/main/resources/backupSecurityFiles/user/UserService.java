@@ -1,4 +1,4 @@
-package ru.gb.web_market.core.services;
+package backupSecurityFiles.security;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.gb.web_market.core.aspect.DoNotThrowBadCredentialsException;
-import ru.gb.web_market.core.repositories.UserRepository;
 import ru.gb.web_market.core.entities.Role;
 import ru.gb.web_market.core.entities.User;
 
