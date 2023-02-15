@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.gb.web_market.api.dto.ProductDto;
 import ru.gb.web_market.api.dto.ProductFullDto;
+import ru.gb.web_market.api.dto.ProductToCartDto;
 
 @Entity
 @Data
@@ -25,7 +26,6 @@ public class OrderItem {
     @Unsigned
     private Order order;
 
-//    @OneToOne
     @Nonnull
     @Unsigned
     private Long productId;
@@ -39,10 +39,10 @@ public class OrderItem {
     @Column(name = "total_price", nullable = false)
     private Double totalPrice;
 
-    public OrderItem(Order order, ProductFullDto productDto, int count) {
+    public OrderItem(Order order, ProductToCartDto productDto) {
         this.order = order;
         this.productId = productDto.getId();
-        this.count = count;
+        this.count = productDto.getCount();
         this.price = productDto.getPrice();
         this.totalPrice = price * count;
     }

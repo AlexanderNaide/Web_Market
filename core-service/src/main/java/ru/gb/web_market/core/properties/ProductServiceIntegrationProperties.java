@@ -9,7 +9,7 @@ import org.springframework.boot.context.properties.bind.ConstructorBinding;
 @Data
 public class ProductServiceIntegrationProperties {
 
-    private String url;
+    private String urlProductsService;
     private Integer readTimeout;
     private Integer writeTimeout;
     private Integer connectTimeout;

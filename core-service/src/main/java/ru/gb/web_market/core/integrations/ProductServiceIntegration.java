@@ -1,6 +1,8 @@
 package ru.gb.web_market.core.integrations;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,7 @@ import reactor.core.publisher.Mono;
 import ru.gb.web_market.api.dto.*;
 import ru.gb.web_market.api.exception.AppError;
 import ru.gb.web_market.api.exception.ResourceNotFoundException;
+import ru.gb.web_market.core.properties.ProductServiceIntegrationProperties;
 
 import java.util.Optional;
 
@@ -19,11 +22,18 @@ public class ProductServiceIntegration {
 
 //    private final RestTemplate restTemplate;
     private final WebClient productServiceWebClient;
+    private final ProductServiceIntegrationProperties productServiceIntegrationProperties;
+
+/*    @PostConstruct
+    public void setProductServiceWebClient(@Qualifier("product") WebClient productServiceWebClient) {
+        this.productServiceWebClient = productServiceWebClient;
+    }*/
 
     public ProductFullDto getProductById(Long id){
 //        return Optional.ofNullable(restTemplate.getForObject("http://localhost:8084/market-products/api/v1/products/" + id, ProductFullDto.class));
         return productServiceWebClient.get() // "собираем запрос"
-                .uri("/api/v1/products/" + id)
+                .uri(productServiceIntegrationProperties.getUrlProductsService() + "/api/v1/products/" + id)
+//                .uri("/api/v1/products/" + id)
 //                .header("username", username) //это если нужны headers, добавляем через .
 //                .bodyValue(body) //если в тело надо включить объект - делается так. Естественно с get не работает, надо в post или где там еще...
                 .retrieve() //"что делать с ответом"
@@ -41,7 +51,8 @@ public class ProductServiceIntegration {
     public CartDto updateCart(CartDto cart){
 //        return restTemplate.postForEntity("http://localhost:8084/market-products/api/v1/products/update_cart", cart, CartDto.class).getBody();
         return productServiceWebClient.post()
-                .uri("/api/v1/products/update_cart")
+                .uri(productServiceIntegrationProperties.getUrlProductsService() + "/api/v1/products/update_cart")
+//                .uri("/api/v1/products/update_cart")
                 .bodyValue(cart)
                 .retrieve()
                 .onStatus(
@@ -55,7 +66,8 @@ public class ProductServiceIntegration {
     public OrderFullDto updateOrderList(OrderFullDto orderFullDto){
 //        return restTemplate.postForEntity("http://localhost:8084/market-products/api/v1/products/update_order_list", orderFullDto, OrderFullDto.class).getBody();
         return productServiceWebClient.post()
-                .uri("/api/v1/products/update_order_list")
+                .uri(productServiceIntegrationProperties.getUrlProductsService() + "/api/v1/products/update_order_list")
+//                .uri("/api/v1/products/update_order_list")
                 .bodyValue(orderFullDto)
                 .retrieve()
                 .onStatus(
