@@ -52,6 +52,6 @@ public class OrderServiceTest {
 
 
 //        Order order = orderService.createdOrder("Bob");
-//        Assertions.assertEquals(order.getProductList().stream().mapToDouble(OrderItem::getTotalPrice).sum(), 100.00);
+//        Assertions.assertEquals(order.getProductList().stream().mapToDouble(e -> e.getPrice() * e.getCount()).sum(), 100.00);
     }
 }

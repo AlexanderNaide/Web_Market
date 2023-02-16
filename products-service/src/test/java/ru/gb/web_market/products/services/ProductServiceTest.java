@@ -38,7 +38,7 @@ public class ProductServiceTest {
         Product bread = new Product();
         bread.setId(1L);
         bread.setArticle("300");
-        bread.setTitle("Dread");
+        bread.setTitle("Bread");
         bread.setPrice(55.0);
         Mockito.doReturn(Optional.of(bread)).when(productRepository)
                 .findById(1L);
