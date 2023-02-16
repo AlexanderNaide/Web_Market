@@ -20,7 +20,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderItemService orderItemService;
-    private final ProductServiceIntegration productServiceIntegration;
+//    private final ProductServiceIntegration productServiceIntegration;
 
     private final AuthServiceIntegration authServiceIntegration;
 
