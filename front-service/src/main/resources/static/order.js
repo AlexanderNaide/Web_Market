@@ -1,5 +1,5 @@
 angular.module('app', ['ngStorage']).controller('orderController', function ($scope, $http, $localStorage) {
-    const contextPathCore = 'http://localhost:8066/core/api/v1';
+    const contextPathOrder = 'http://localhost:8066/order/api/v1';
 
     if($localStorage.webmarketUser){
         try {
@@ -18,7 +18,7 @@ angular.module('app', ['ngStorage']).controller('orderController', function ($sc
 
     $scope.loadOrders = function () {
         $http({
-            url: contextPathCore + '/orders',
+            url: contextPathOrder + '/orders',
             method: 'GET'
         }).then(function (response) {
             console.log(response.data)
@@ -29,7 +29,7 @@ angular.module('app', ['ngStorage']).controller('orderController', function ($sc
 
     $scope.getOrderById = function (id){
         $http({
-            url: contextPathCore + "/orders/" + id,
+            url: contextPathOrder + "/orders/" + id,
             method: 'GET'
         }).then(function (response) {
             console.log(response.data);

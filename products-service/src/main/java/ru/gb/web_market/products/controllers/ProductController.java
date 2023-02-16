@@ -14,7 +14,6 @@ import ru.gb.web_market.products.services.ProductService;
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
-//@CrossOrigin("*")
 public class ProductController {
 
     private final ProductService productService;

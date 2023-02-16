@@ -1,4 +1,4 @@
-package ru.gb.web_market.products.controllers;
+package ru.gb.web_market.order.api;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -12,7 +12,6 @@ import java.util.Arrays;
 
 @Component
 public class MainFilter extends OncePerRequestFilter/*implements Filter*/ {
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
@@ -20,9 +19,8 @@ public class MainFilter extends OncePerRequestFilter/*implements Filter*/ {
         System.out.println("URL:");
         System.out.println(request.getRequestURI());
         System.out.println("Parameters:");
-        request.getParameterMap().forEach((a, e) -> System.out.println( a + " " + Arrays.toString(e)));
-        System.out.println("Header 'username'");
-        request.getHeader("username");
+        request.getParameterMap().forEach((a, e) -> System.out.println("[" + a + " " + Arrays.toString(e) + "]"));
+        System.out.println(request.getHeader("Authorization"));
 
         response.setCharacterEncoding("UTF-8");
 

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import ru.gb.web_market.api.dto.CategoryDto;
 import ru.gb.web_market.products.entities.Category;
 
 import java.util.List;
@@ -43,6 +44,6 @@ public interface CategoriesRepository extends JpaRepository<Category, Long>, Jpa
     @Query("select c from Category c where c.parentCategory.id = ?1")
     List<Category> findCategories(Long id);
 
-    Optional<Category> findFirstByTitle(String title);
+//    Optional<Category> findFirstByTitle(String title);
 
 }
