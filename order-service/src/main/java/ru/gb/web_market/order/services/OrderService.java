@@ -29,7 +29,7 @@ public class OrderService {
     }
 
     @Transactional
-    public Order createdOrder(String username) {
+    public void createdOrder(String username) {
         if(username != null){
             Order order = new Order();
             order.setUsername(username);
@@ -43,10 +43,10 @@ public class OrderService {
             });
             authServiceIntegration.clearCart(username);
             orderRepository.save(order);
-            return order;
-        }
-        else{
-            return null;
+//            return order;
+//        }
+//        else{
+//            return null;
         }
 
     }

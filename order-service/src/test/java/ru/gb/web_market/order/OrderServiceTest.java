@@ -44,14 +44,14 @@ public class OrderServiceTest {
         Mockito.doReturn(cartDto).when(authServiceIntegration).getCartDto("Bob");
 
 
-        //Как вот тут мне сделать, чтобы Mokito кешировал заказ в Hibernate контексте?? Ну в смысле эмуляция метода save()
-        // Или как мне отсюда подменить объект Order внутри метода createOrder?
-        // Дело в том, что у меня не получается уйти от сохранения Order в середине процесса создания, я пробовал и коскадирования
-        // настраивать
+        // Как вот тут мне сделать, чтобы Mokito кешировал заказ в Hibernate контексте?? Ну в смысле эмуляция метода save()
+        // Или как мне отсюда подменить объект Order внутри метода createOrder, когда он создается внутри?
+        // Дело в том, что у меня не получается уйти от сохранения Order в середине процесса создания, я пробовал и каскадирование
+        // настраивать в сущности, там на Листе productList и Transaction, короче так просто не решается.
 //        Mockito.doReturn(orderTest).when(orderRepository).save(new Order());
 
 
-        Order order = orderService.createdOrder("Bob");
+//        Order order = orderService.createdOrder("Bob");
 //        Assertions.assertEquals(order.getProductList().stream().mapToDouble(OrderItem::getTotalPrice).sum(), 100.00);
     }
 }
