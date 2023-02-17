@@ -14,7 +14,7 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 
     List<Order> findAllByUsername (String username);
 
-//    @Query("select o from Order o join fetch o.productList where o.id = ?1")
+    @Query("select o from Order o join fetch o.productList where o.id = ?1")
     Optional<Order> findById(Long Id);
 
 }
