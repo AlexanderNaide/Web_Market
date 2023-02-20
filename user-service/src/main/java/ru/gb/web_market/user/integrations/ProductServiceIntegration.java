@@ -1,19 +1,16 @@
 package ru.gb.web_market.user.integrations;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import ru.gb.web_market.api.dto.CartDto;
-import ru.gb.web_market.api.dto.OrderFullDto;
-import ru.gb.web_market.api.dto.ProductFullDto;
 import ru.gb.web_market.api.exception.AppError;
 import ru.gb.web_market.api.exception.ResourceNotFoundException;
 
 @Component
 @RequiredArgsConstructor
-public class AuthServiceIntegration {
+public class ProductServiceIntegration {
     private final WebClient authServiceWebClient;
 
 /*    public ProductFullDto getProductById(Long id){

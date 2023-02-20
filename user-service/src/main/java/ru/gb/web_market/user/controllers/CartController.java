@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.gb.web_market.api.dto.CartDto;
 import ru.gb.web_market.api.dto.ProductToCartDto;
 import ru.gb.web_market.user.entities.User;
-import ru.gb.web_market.user.integrations.AuthServiceIntegration;
+import ru.gb.web_market.user.integrations.ProductServiceIntegration;
 import ru.gb.web_market.user.services.CartService;
 import ru.gb.web_market.user.services.UserService;
 
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class CartController {
     private final CartService cartService;
 
-    private final AuthServiceIntegration authServiceIntegration;
+    private final ProductServiceIntegration productServiceIntegration;
 
     private final UserService userService;
 
@@ -43,7 +43,7 @@ public class CartController {
             dto.setCount(e.getValue());
             return dto;
         }).collect(Collectors.toList()));
-        return authServiceIntegration.updateCart(cartDto);
+        return productServiceIntegration.updateCart(cartDto);
     }
 
     @GetMapping("/count")
