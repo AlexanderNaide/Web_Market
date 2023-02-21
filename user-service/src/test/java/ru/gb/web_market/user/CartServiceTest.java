@@ -1,18 +1,21 @@
 package ru.gb.web_market.user;
 
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.gb.web_market.api.dto.CartDto;
 import ru.gb.web_market.api.dto.ProductToCartDto;
+import ru.gb.web_market.user.configs.AppConfig;
+import ru.gb.web_market.user.controllers.CartController;
 import ru.gb.web_market.user.entities.User;
 import ru.gb.web_market.user.integrations.ProductServiceIntegration;
 import ru.gb.web_market.user.services.CartService;
@@ -23,6 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -31,6 +38,9 @@ public class CartServiceTest {
 
     @Autowired
     private CartService cartService;
+
+    @Autowired
+    private CartController cartController;
 
     @Autowired
     private MockMvc mvc;
@@ -74,12 +84,34 @@ public class CartServiceTest {
 
     }
 
+//    @Test
+//    @org.junit.jupiter.api.Order(1)
+//    public void addToCartTest() throws Exception {
+//        mvc.perform(get("/market-user/api/v1/cart")
+//                        .header("username", "Bob"))
+//                .andExpect(status().isOk());
+//
+//    }
+
+//    @Test
+//    @Order(2)
+//    public void getCartTest() throws Exception{
+//        mvc.perform(
+//                get("/market-user/api/v1/cart")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .header("username", "Bob"))
+//                .andDo(print());
+////                .andExpect(status().isOk());
+//    }
+
     @Test
-    @org.junit.jupiter.api.Order(1)
-    public void addToCartTest() {
-//        mvc.perform(get("/api"))
-
-
-
+    @Order(1)
+    public void getCountTest() throws Exception{
+        mvc.perform(
+                        get("/market-user/api/v1/cart/count")
+//                                .contentType(MediaType.APPLICATION_JSON)
+                                .header("username", "Bob"))
+                .andDo(print());
+//                .andExpect(status().isOk());
     }
 }
