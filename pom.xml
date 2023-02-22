@@ -5,12 +5,12 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>core-service</module>
+        <module>order-service</module>
         <module>products-service</module>
         <module>api</module>
         <module>front-service</module>
         <module>gateway-service</module>
-        <module>auth-service</module>
+        <module>user-service</module>
     </modules>
 
     <groupId>ru.gb</groupId>

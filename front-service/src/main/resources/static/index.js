@@ -1,7 +1,8 @@
 angular.module('app', ['ngStorage']).controller('indexController', function ($scope, $http, $localStorage) {
     const contextPathProducts = 'http://localhost:8066/products/api/v1';
-    const contextPathCore = 'http://localhost:8066/core/api/v1';
+    const contextPathOrder = 'http://localhost:8066/order/api/v1';
     const contextPathAuth = 'http://localhost:8066/auth/api/v1';
+    const contextPathCart = 'http://localhost:8066/cart/api/v1';
     let number = 1;
     let totalNumber;
     $scope.modalStatus = null;
@@ -70,7 +71,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.createOrder = function () {
         $http({
-            url: contextPathCore + "/orders/create",
+            url: contextPathOrder + "/orders/create",
             method: 'GET'
         }).then(function (response) {
             $scope.CardList = null;
@@ -124,7 +125,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.showCart = function () {
         $http({
-            url: contextPathAuth + "/cart",
+            url: contextPathCart + "/cart",
             method: 'GET',
             // headers: {
             //     Authorization: "Bearer " + token
@@ -150,7 +151,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     $scope.showCartCount = function () {
         if($localStorage.webmarketUser){
             $http({
-                url: contextPathAuth + "/cart/count",
+                url: contextPathCart + "/cart/count",
                 method: 'GET',
                 // headers: {
                 //     Authorization: "Bearer " + token
@@ -163,7 +164,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.addToCart = function (id, count) {
         $http({
-            url: contextPathAuth + "/cart/add_to_cart",
+            url: contextPathCart + "/cart/add_to_cart",
             method: 'GET',
             // headers: {
             //     Authorization: "Bearer " + token
@@ -179,7 +180,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.setCountToCart = function (id, count) {
         $http({
-            url: contextPathAuth + "/cart/add_to_cart",
+            url: contextPathCart + "/cart/add_to_cart",
             method: 'GET',
             // headers: {
             //     Authorization: "Bearer " + token
@@ -196,7 +197,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
 
     $scope.deleteProductFromCart = function (id) {
         $http({
-            url: contextPathAuth + "/cart/dell_from_cart",
+            url: contextPathCart + "/cart/dell_from_cart",
             method: 'GET',
             // headers: {
             //     Authorization: "Bearer " + token
