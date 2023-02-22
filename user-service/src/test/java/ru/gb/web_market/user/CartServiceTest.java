@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -26,13 +27,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.BDDMockito.given;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 //@ActiveProfiles("test")
 public class CartServiceTest {
 
@@ -59,6 +64,8 @@ public class CartServiceTest {
         user.setCart(new HashMap<>());
         user.getCart().put(1L, 2);
 
+//        given(userService.findByUsername("Bob")).willReturn(Optional.of(user));
+
         Mockito.doReturn(Optional.of(user)).when(userService).findByUsername("Bob");
 
         ProductToCartDto productToCartDto = new ProductToCartDto();
@@ -84,34 +91,44 @@ public class CartServiceTest {
 
     }
 
-//    @Test
-//    @org.junit.jupiter.api.Order(1)
-//    public void addToCartTest() throws Exception {
-//        mvc.perform(get("/market-user/api/v1/cart")
-//                        .header("username", "Bob"))
-//                .andExpect(status().isOk());
-//
-//    }
-
-//    @Test
-//    @Order(2)
-//    public void getCartTest() throws Exception{
-//        mvc.perform(
-//                get("/market-user/api/v1/cart")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .header("username", "Bob"))
-//                .andDo(print());
-////                .andExpect(status().isOk());
-//    }
-
     @Test
     @Order(1)
     public void getCountTest() throws Exception{
         mvc.perform(
-                        get("/market-user/api/v1/cart/count")
+                        get("/api/v1/cart/count")
 //                                .contentType(MediaType.APPLICATION_JSON)
                                 .header("username", "Bob"))
-                .andDo(print());
-//                .andExpect(status().isOk());
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").value(2));
     }
+
+    @Test
+    @Order(2)
+    public void addToCartTest() throws Exception {
+        mvc.perform(get("/api/v1/cart/add_to_cart")
+                        .header("username", "Bob")
+                        .param("id", "1")
+                        .param("count", "1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+
+    }
+
+    @Test
+    @Order(3)
+    public void getCartTest() throws Exception{
+        mvc.perform(
+                get("/api/v1/cart")
+//                        .contentType(MediaType.APPLICATION_JSON)
+                        .header("username", "Bob"))
+                .andDo(print())
+                .andExpect(status().isOk());
+//                .andExpect(jsonPath("$.cart.size()").value(1));
+//                .andExpect(jsonPath("$", hasSize(1)));
+    }
+
+
+
 }
