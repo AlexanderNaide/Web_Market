@@ -1,4 +1,4 @@
-angular.module('app', ['ngStorage']).controller('orderController', function ($scope, $http, $localStorage) {
+angular.module('market').controller('orderController', function ($scope, $http, $localStorage) {
     const contextPathOrder = 'http://localhost:8066/order/api/v1';
 
     if($localStorage.webmarketUser){
@@ -7,7 +7,7 @@ angular.module('app', ['ngStorage']).controller('orderController', function ($sc
             let payload = JSON.parse(atob(jwt.split('.')[1]));
             let currentTime = parseInt(new Date().getTime() / 1000);
             if (currentTime > payload.exp){
-                window.location.href = 'index.html';
+                window.location.href = 'product.html';
             } else {
                 $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webmarketUser.token;
             }
@@ -41,7 +41,7 @@ angular.module('app', ['ngStorage']).controller('orderController', function ($sc
 
 
     $scope.redirectHome = function (){
-        window.location.href = 'index.html';
+        window.location.href = 'product.html';
     };
 
 
