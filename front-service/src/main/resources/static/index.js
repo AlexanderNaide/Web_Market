@@ -1,31 +1,31 @@
 (function () {
     angular
         .module('market', ['ngRoute', 'ngStorage'])
-        // .config(config)
-        .configuration(config)
+        .config(config)
+        // .configuration(config)
         .run(run);
 
 
     function config($routeProvider){
         $routeProvider
-            .when('/', {
-                templateUrl: 'index.html',
-                controller: 'index.js'
-            })
+            // .when('/', {
+            //     templateUrl: 'index.html',
+            //     controller: 'index.js'
+            // })
             .when('/order', {
                 templateUrl: 'order/order.html',
-                controller: 'order.js'
+                controller: 'orderController'
             })
-            .when('/product', {
+            .when('/', {
                 templateUrl: 'product/product.html',
-                controller: 'product.js'
+                controller: 'productController'
             })
             .otherwise({
                 redirectTo: '/'
             });
     }
 
-    function run($rootScope, $http, $localStorage) {
+    function run($rootScope, $http, $localStorage, $location) {
         if ($localStorage.webmarketUser) {
             try {
                 let jwt = $localStorage.webmarketUser.token;
@@ -35,7 +35,7 @@
                     console.log("Время жизни токена истекло");
                     delete $localStorage.webmarketUser;
                     $http.defaults.headers.common.Authorization = '';
-                    // $scope.clearUser();
+                    $location.path('/')
                 } else {
                     $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webmarketUser.token;
                 }
@@ -50,8 +50,6 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
     const contextPathOrder = 'http://localhost:8066/order/api/v1';
     const contextPathAuth = 'http://localhost:8066/auth/api/v1';
     const contextPathCart = 'http://localhost:8066/cart/api/v1';
-    let number = 1;
-    let totalNumber;
     $scope.modalStatus = null;
 
 
@@ -75,9 +73,83 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
         });
     };
 
+    $scope.showCart = function () {
+        $http({
+            url: contextPathCart + "/cart",
+            method: 'GET',
+        }).then(function (response) {
+            // console.log(response.data)
+            // console.log(response.data.cart)
+            $scope.CardList = response.data.cart;
+            $scope.CardTotalSize = $scope.CardList.length;
+            let total = 0;
+            let summ = 0;
+            for (let p of $scope.CardList) {
+                let count = p.count;
+                let price = p.price;
+                total += count;
+                summ += (count * price);
+            }
+            $scope.CardTotalProduct = total;
+            $scope.CardTotalSumm = summ;
+        });
+    };
+
+    $scope.showCartCount = function () {
+        if($localStorage.webmarketUser){
+            $http({
+                url: contextPathCart + "/cart/count",
+                method: 'GET',
+            }).then(function (response) {
+                $scope.CardTotalProduct = response.data;
+            });
+        }
+    };
+
+    $scope.createOrder = function () {
+        $http({
+            url: contextPathOrder + "/orders/create",
+            method: 'GET'
+        }).then(function (response) {
+            $scope.CardList = null;
+            $scope.CardTotalProduct = 0;
+            $('#cartRes').click();
+            alert("Заказ оформлен успешно")
+        }).catch(function (response){
+            alert(response.data.message)
+        });
+    };
+
+    $scope.setCountToCart = function (id, count) {
+        $http({
+            url: contextPathCart + "/cart/add_to_cart",
+            method: 'GET',
+            params: {
+                id: id,
+                count: count
+            }
+        }).then(function (response) {
+            $scope.showCartCount();
+            $scope.showCart();
+        });
+    };
+
+    $scope.deleteProductFromCart = function (id) {
+        $http({
+            url: contextPathCart + "/cart/dell_from_cart",
+            method: 'GET',
+            params: {
+                id: id
+            }
+        }).then(function (response) {
+            $scope.showCart();
+        });
+    };
+
     $scope.clearUser = function (){
         delete $localStorage.webmarketUser;
         $http.defaults.headers.common.Authorization = '';
+        $location.path('/')
     }
 
     $scope.ifUserLoggedIn = function (){
@@ -85,5 +157,6 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
     }
 
     $scope.filter = null;
+    $scope.showCartCount();
 });
 

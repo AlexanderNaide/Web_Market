@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html ng-app="market">
+<html ng-app="market" lang="En">
 
 <head>
     <meta charset="UTF-8">
@@ -20,6 +20,16 @@
     <script src="product/product.js"></script>
 
     <title>Boot HomeWork</title>
+
+    <style>
+        a {
+            color: #4a5056;
+        }
+        a:hover {
+            color: #000000;
+            /*text-shadow: 0px 0px 2px rgba(42, 36, 36, 0.7);*/
+        }
+    </style>
 </head>
 
 
@@ -27,25 +37,74 @@
 <body>
 <div class="container" ng-controller="indexController">
 
+<!--    Простой header-->
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Панель навигации</a>
+            <a class="navbar-brand link-dark" href="#!/" style="font-size: xx-large">Web - market</a>
+<!--            <a class="nav-link link-dark" href="#!/" style="font-size: xx-large">Web - market</a>-->
+
+
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Переключатель навигации">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#!/">Главная</a>
-                    <a class="nav-link" href="#!order" ng-show="ifUserLoggedIn()">Заказы</a>
-                    <a class="nav-link" ng-show="!ifUserLoggedIn()" data-bs-toggle="modal" data-bs-target="#modalAuthentication">Войти</a>
-                    <a class="nav-link disabled">Отключенная</a>
+
+<!--            <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="margin-left: 30%; font-size: x-large">-->
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="font-size: x-large">
+<!--            <div class="container-fluid" id="navbarNavAltMarkup" style="font-size: x-large">-->
+<!--                <div class="navbar-nav" >-->
+                <div class="navbar-nav" content="inline-block" style="margin-left: auto; grid-column-gap: 16px">
+<!--                    <a class="nav-link active" aria-current="page" href="#!/" fill="currentColor">Главная</a>-->
+
+                    <a class="nav-link" href="#" ng-show="ifUserLoggedIn()" ng-click="showCart()" data-bs-toggle="modal" data-bs-target="#exampleModalCart">
+                        <svg ng-click="showCart()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 18">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                        <span class="bg-secondary text-white position-absolute top-0 start-100 translate-middle badge rounded-pill" style="margin-left: -18px; font-size: small">{{CardTotalProduct}}</span>
+                        Корзина
+                    </a>
+
+                    <a class="nav-link" href="#!order" ng-show="ifUserLoggedIn()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box2" viewBox="0 0 16 18">
+                            <path d="M2.95.4a1 1 0 0 1 .8-.4h8.5a1 1 0 0 1 .8.4l2.85 3.8a.5.5 0 0 1 .1.3V15a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4.5a.5.5 0 0 1 .1-.3L2.95.4ZM7.5 1H3.75L1.5 4h6V1Zm1 0v3h6l-2.25-3H8.5ZM15 5H1v10h14V5Z"/>
+                        </svg>
+                        Заказы
+                    </a>
+
+                    <a class="nav-link" ng-click="clearUser()" href="#" ng-show="ifUserLoggedIn()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 18">
+                            <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                            <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
+                        Выйти
+                    </a>
+
+
+                    <a class="nav-link" href="#" ng-show="!ifUserLoggedIn()" data-bs-toggle="modal" data-bs-target="#modalAuthentication" >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 18">
+                            <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>
+                            <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                        </svg>
+                        Войти
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
+<!--    <div class="container-lg bg-light" >-->
+<!--        <div class="container-fluid">-->
+<!--&lt;!&ndash;            <a class="navbar-brand" href="#!/" style="font-size: xxx-large">Web - market</a>&ndash;&gt;-->
+<!--            <a href="#!/" style="font-size: xxx-large" cursor="pointer">Web - market</a>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
+
+
+
     <div class="row align-items-start" style="height: 140px; padding: 30px;">
-            <h1>GeekBrains   Spring II<br></h1>
+<!--            <h1>GeekBrains   Spring II<br></h1>-->
     </div>
     <ng-view></ng-view>
 
@@ -112,8 +171,8 @@
 <!--                                <path fill-rule="evenodd" d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"/>-->
 <!--                                <path fill-rule="evenodd" d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>-->
 <!--                            </svg>-->
-<!--&lt;!&ndash;                            <button type="button" class="btn btn-outline-secondary" ng-click="buttonCartFunction()" data-bs-toggle="modal" data-bs-target={{buttonTargetClick}}>&ndash;&gt;-->
-<!--&lt;!&ndash;                                {{buttonCartTitle}}<span class="bg-secondary text-white position-absolute top-0 start-100 translate-middle badge rounded-pill" ng-show="visibleButtonAddToCart()">{{CardTotalProduct}}</span></button>&ndash;&gt;-->
+<!--                            <button type="button" class="btn btn-outline-secondary" ng-click="buttonCartFunction()" data-bs-toggle="modal" data-bs-target={{buttonTargetClick}}>-->
+<!--                                {{buttonCartTitle}}<span class="bg-secondary text-white position-absolute top-0 start-100 translate-middle badge rounded-pill" ng-show="visibleButtonAddToCart()">{{CardTotalProduct}}</span></button>-->
 
 <!--                        </div>-->
 <!--                        <div ng-show="ifUserLoggedIn()">-->

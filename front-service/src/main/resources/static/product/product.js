@@ -7,22 +7,22 @@ angular.module('market').controller('productController', function ($scope, $http
     let totalNumber;
     $scope.modalStatus = null;
 
-    if($localStorage.webmarketUser){
-        try {
-            let jwt = $localStorage.webmarketUser.token;
-            let payload = JSON.parse(atob(jwt.split('.')[1]));
-            let currentTime = parseInt(new Date().getTime() / 1000);
-            if (currentTime > payload.exp){
-                console.log("Время жизни токена истекло");
-                delete $localStorage.webmarketUser;
-                $http.defaults.headers.common.Authorization = '';
-                // $scope.clearUser();
-            } else {
-                $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webmarketUser.token;
-            }
-        } catch (e){
-        }
-    }
+    // if($localStorage.webmarketUser){
+    //     try {
+    //         let jwt = $localStorage.webmarketUser.token;
+    //         let payload = JSON.parse(atob(jwt.split('.')[1]));
+    //         let currentTime = parseInt(new Date().getTime() / 1000);
+    //         if (currentTime > payload.exp){
+    //             console.log("Время жизни токена истекло");
+    //             delete $localStorage.webmarketUser;
+    //             $http.defaults.headers.common.Authorization = '';
+    //             // $scope.clearUser();
+    //         } else {
+    //             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.webmarketUser.token;
+    //         }
+    //     } catch (e){
+    //     }
+    // }
 
     $scope.updateProducts = function () {
         let min;
@@ -69,19 +69,19 @@ angular.module('market').controller('productController', function ($scope, $http
         });
     };
 
-    $scope.createOrder = function () {
-        $http({
-            url: contextPathOrder + "/orders/create",
-            method: 'GET'
-        }).then(function (response) {
-            $scope.CardList = null;
-            $scope.CardTotalProduct = 0;
-            $('#cartRes').click();
-            alert("Заказ оформлен успешно")
-        }).catch(function (response){
-            alert(response.data.message)
-        });
-    };
+    // $scope.createOrder = function () {
+    //     $http({
+    //         url: contextPathOrder + "/orders/create",
+    //         method: 'GET'
+    //     }).then(function (response) {
+    //         $scope.CardList = null;
+    //         $scope.CardTotalProduct = 0;
+    //         $('#cartRes').click();
+    //         alert("Заказ оформлен успешно")
+    //     }).catch(function (response){
+    //         alert(response.data.message)
+    //     });
+    // };
 
     $scope.getProduct = function (id) {
         $http({
@@ -123,44 +123,44 @@ angular.module('market').controller('productController', function ($scope, $http
         });
     };
 
-    $scope.showCart = function () {
-        $http({
-            url: contextPathCart + "/cart",
-            method: 'GET',
-            // headers: {
-            //     Authorization: "Bearer " + token
-            // }
-        }).then(function (response) {
-            console.log(response.data)
-            console.log(response.data.cart)
-            $scope.CardList = response.data.cart;
-            $scope.CardTotalSize = $scope.CardList.length;
-            let total = 0;
-            let summ = 0;
-            for (let p of $scope.CardList) {
-                let count = p.count;
-                let price = p.price;
-                total += count;
-                summ += (count * price);
-            }
-            $scope.CardTotalProduct = total;
-            $scope.CardTotalSumm = summ;
-        });
-    };
+    // $scope.showCart = function () {
+    //     $http({
+    //         url: contextPathCart + "/cart",
+    //         method: 'GET',
+    //         // headers: {
+    //         //     Authorization: "Bearer " + token
+    //         // }
+    //     }).then(function (response) {
+    //         console.log(response.data)
+    //         console.log(response.data.cart)
+    //         $scope.CardList = response.data.cart;
+    //         $scope.CardTotalSize = $scope.CardList.length;
+    //         let total = 0;
+    //         let summ = 0;
+    //         for (let p of $scope.CardList) {
+    //             let count = p.count;
+    //             let price = p.price;
+    //             total += count;
+    //             summ += (count * price);
+    //         }
+    //         $scope.CardTotalProduct = total;
+    //         $scope.CardTotalSumm = summ;
+    //     });
+    // };
 
-    $scope.showCartCount = function () {
-        if($localStorage.webmarketUser){
-            $http({
-                url: contextPathCart + "/cart/count",
-                method: 'GET',
-                // headers: {
-                //     Authorization: "Bearer " + token
-                // }
-            }).then(function (response) {
-                $scope.CardTotalProduct = response.data;
-            });
-        }
-    };
+    // $scope.showCartCount = function () {
+    //     if($localStorage.webmarketUser){
+    //         $http({
+    //             url: contextPathCart + "/cart/count",
+    //             method: 'GET',
+    //             // headers: {
+    //             //     Authorization: "Bearer " + token
+    //             // }
+    //         }).then(function (response) {
+    //             $scope.CardTotalProduct = response.data;
+    //         });
+    //     }
+    // };
 
     $scope.addToCart = function (id, count) {
         $http({
@@ -178,37 +178,37 @@ angular.module('market').controller('productController', function ($scope, $http
         });
     };
 
-    $scope.setCountToCart = function (id, count) {
-        $http({
-            url: contextPathCart + "/cart/add_to_cart",
-            method: 'GET',
-            // headers: {
-            //     Authorization: "Bearer " + token
-            // },
-            params: {
-                id: id,
-                count: count
-            }
-        }).then(function (response) {
-            $scope.showCartCount();
-            $scope.showCart();
-        });
-    };
+    // $scope.setCountToCart = function (id, count) {
+    //     $http({
+    //         url: contextPathCart + "/cart/add_to_cart",
+    //         method: 'GET',
+    //         // headers: {
+    //         //     Authorization: "Bearer " + token
+    //         // },
+    //         params: {
+    //             id: id,
+    //             count: count
+    //         }
+    //     }).then(function (response) {
+    //         $scope.showCartCount();
+    //         $scope.showCart();
+    //     });
+    // };
 
-    $scope.deleteProductFromCart = function (id) {
-        $http({
-            url: contextPathCart + "/cart/dell_from_cart",
-            method: 'GET',
-            // headers: {
-            //     Authorization: "Bearer " + token
-            // },
-            params: {
-                id: id
-            }
-        }).then(function (response) {
-            $scope.showCart();
-        });
-    };
+    // $scope.deleteProductFromCart = function (id) {
+    //     $http({
+    //         url: contextPathCart + "/cart/dell_from_cart",
+    //         method: 'GET',
+    //         // headers: {
+    //         //     Authorization: "Bearer " + token
+    //         // },
+    //         params: {
+    //             id: id
+    //         }
+    //     }).then(function (response) {
+    //         $scope.showCart();
+    //     });
+    // };
 
     $scope.searchForm = function () {
         number = 1;
@@ -319,27 +319,27 @@ angular.module('market').controller('productController', function ($scope, $http
         });
     };*/
 
-    $scope.authentications = function () {
-        $http.post(contextPathAuth + '/token', $scope.auth)
-            .then(function (response) {
-                if(response.data.token){
-                    console.log("Токен получен")
-                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
-                    $localStorage.webmarketUser = {username: $scope.auth.username, token: response.data.token};
-                    // $scope.buttonCart();
-                    $('#authRes').click();
-                    $scope.showCartCount();
-                }
-            }).catch(function (response) {
-            // console.log(response.data.message)
-            $scope.modalStatus = response.data.message;
-        });
-    };
+    // $scope.authentications = function () {
+    //     $http.post(contextPathAuth + '/token', $scope.auth)
+    //         .then(function (response) {
+    //             if(response.data.token){
+    //                 console.log("Токен получен")
+    //                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+    //                 $localStorage.webmarketUser = {username: $scope.auth.username, token: response.data.token};
+    //                 // $scope.buttonCart();
+    //                 $('#authRes').click();
+    //                 $scope.showCartCount();
+    //             }
+    //         }).catch(function (response) {
+    //         // console.log(response.data.message)
+    //         $scope.modalStatus = response.data.message;
+    //     });
+    // };
 
-    $scope.clearUser = function (){
-        delete $localStorage.webmarketUser;
-        $http.defaults.headers.common.Authorization = '';
-    }
+    // $scope.clearUser = function (){
+    //     delete $localStorage.webmarketUser;
+    //     $http.defaults.headers.common.Authorization = '';
+    // }
 
     $scope.ifUserLoggedIn = function (){
         return !!$localStorage.webmarketUser;
@@ -349,7 +349,7 @@ angular.module('market').controller('productController', function ($scope, $http
     $scope.loadProducts();
     $scope.categories();
     $scope.manufacturer();
-    $scope.showCartCount();
+    // $scope.showCartCount();
     $('#sub').prop( 'disabled',true );
 
 });
