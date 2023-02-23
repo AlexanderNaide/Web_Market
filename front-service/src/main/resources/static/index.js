@@ -16,6 +16,10 @@
                 templateUrl: 'order/order.html',
                 controller: 'orderController'
             })
+            .when('/user', {
+                templateUrl: 'user/user.html',
+                controller: 'userController'
+            })
             .when('/', {
                 templateUrl: 'product/product.html',
                 controller: 'productController'

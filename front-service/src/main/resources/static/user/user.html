@@ -1,0 +1,26 @@
+<form id="userFilter" novalidate ng-submit="setUserInformation()">
+
+    <label> Имя пользователя
+        <input class="form-control" type="text" ng-model="filter.min">
+    </label>
+
+    <label> Задать новый пароль
+        <input class="form-control" type="password" ng-model="filter.min">
+    </label>
+
+    <label>Электронная почта
+        <input class="form-control" type="email" ng-model="filter.min">
+    </label>
+
+    <label>Телефон
+        <input class="form-control" type="tel" ng-model="filter.min">
+    </label>
+
+    <label>Дата рождения
+        <input class="form-control" type="date" ng-model="filter.min">
+    </label>
+
+    <button type="button" class="btn btn-secondary" ng-click="resetFilter()">Сбросить</button>
+    <button class="btn btn-success" type="submit">Применить</button>
+
+</form>
