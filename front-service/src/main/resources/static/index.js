@@ -73,6 +73,25 @@ angular.module('market').controller('indexController', function ($rootScope, $sc
         });
     };
 
+    $scope.registrations = function () {
+        $http.post(contextPathAuth + '/registrations', $scope.auth)
+            .then(function (response) {
+                if(response.data.token){
+                    console.log("Токен получен")
+                    $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
+                    $localStorage.webmarketUser = {username: $scope.auth.username, token: response.data.token};
+                    // $scope.buttonCart();
+                    $('#authRes').click();
+                    $scope.showCartCount();
+
+                    $location.path('/');
+                }
+            }).catch(function (response) {
+            // console.log(response.data.message)
+            $scope.modalStatus = response.data.message;
+        });
+    };
+
     $scope.showCart = function () {
         $http({
             url: contextPathCart + "/cart",

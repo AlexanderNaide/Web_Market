@@ -336,9 +336,14 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button id="authRes" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-<!--                        <button class="btn btn-success" type="submit" data-bs-dismiss="modal">Авторизация</button>-->
-                        <button id="authOk" class="btn btn-success" type="submit" >Авторизация</button>
+                        <div class="col-5">
+                            <button class="btn btn-primary" ng-click="registrations()" type="button" >Регистрация</button>
+                        </div>
+                        <div class="col-7">
+                            <button id="authRes" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                            <!--                        <button class="btn btn-success" type="submit" data-bs-dismiss="modal">Авторизация</button>-->
+                            <button id="authOk" class="btn btn-success" type="submit" >Авторизация</button>
+                        </div>
                     </div>
 
                 </form>
