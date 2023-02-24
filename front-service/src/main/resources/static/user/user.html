@@ -1,26 +1,50 @@
-<form id="userFilter" novalidate ng-submit="setUserInformation()">
+<form id="userFilter" novalidate ng-submit="saveInformation()">
 
-    <label> Имя пользователя
-        <input class="form-control" type="text" ng-model="filter.min">
+    <h5> Имя пользователя </h5>
+    <label>
+        <input class="form-control" type="text" ng-model="UserInformation.username" placeholder="{{UserInformation.username}}">
     </label>
 
-    <label> Задать новый пароль
-        <input class="form-control" type="password" ng-model="filter.min">
+    <br>
+
+    <h5> Дата рождения </h5>
+    <label>
+        <input class="form-control" type="date" ng-model="UserInformation.birthday" placeholder="{{UserInformation.birthday}}">
     </label>
 
-    <label>Электронная почта
-        <input class="form-control" type="email" ng-model="filter.min">
+    <br>
+
+    <h5> Электронная почта </h5>
+    <label>
+        <input class="form-control" type="email" ng-model="UserInformation.email" placeholder="{{UserInformation.email}}">
     </label>
 
-    <label>Телефон
-        <input class="form-control" type="tel" ng-model="filter.min">
+    <br>
+
+    <h5> Телефон </h5>
+    <label>
+        <input class="form-control" type="tel" ng-model="UserInformation.phone" placeholder="{{Date.UTC(UserInformation.phone)}}">
     </label>
 
-    <label>Дата рождения
-        <input class="form-control" type="date" ng-model="filter.min">
+    <hr>
+
+    <h5> Изменить пароль пользователя
+    </h5>
+
+    <label> Введите новый пароль
+        <input class="form-control" type="password" ng-model="UserInformation.password">
     </label>
+
+    <label style="margin-left: 60px"> Повторите ввод нового пароля
+        <input class="form-control" type="password" ng-model="UserInformation.password2">
+    </label>
+
+    <hr>
+
+
+    <hr>
 
     <button type="button" class="btn btn-secondary" ng-click="resetFilter()">Сбросить</button>
-    <button class="btn btn-success" type="submit">Применить</button>
+    <button class="btn btn-success" type="submit">Сохранить</button>
 
 </form>

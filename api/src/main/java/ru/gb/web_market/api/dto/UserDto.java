@@ -1,21 +1,20 @@
 package ru.gb.web_market.api.dto;
 
-import java.time.LocalDate;
+
+import java.util.Date;
 
 public class UserDto {
     private String username;
-
     private String password;
     private String email;
     private String phone;
-    private LocalDate birthday;
+    private Long birthday;
 
     public UserDto() {
     }
 
-    public UserDto(String username, String password, String email, String phone, LocalDate birthday) {
+    public UserDto(String username, String email, String phone, Long birthday) {
         this.username = username;
-        this.password = password;
         this.email = email;
         this.phone = phone;
         this.birthday = birthday;
@@ -53,11 +52,11 @@ public class UserDto {
         this.phone = phone;
     }
 
-    public LocalDate getBirthday() {
+    public Long getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Long birthday) {
         this.birthday = birthday;
     }
 }
