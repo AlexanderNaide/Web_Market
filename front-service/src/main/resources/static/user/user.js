@@ -118,6 +118,8 @@ angular.module('market').controller('userController', function ($scope, $http, $
         }
     };
 
+    //TODO: повесить функцию возврата на предыдущие значения на кнопку сбросить
+
     $scope.loadInformation();
 
 });
