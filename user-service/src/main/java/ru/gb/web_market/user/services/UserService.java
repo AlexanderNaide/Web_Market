@@ -43,4 +43,8 @@ public class UserService implements UserDetailsService {
     public void save(User user){
         userRepository.save(user);
     }
+
+    public Integer containsUsername(String username){
+        return userRepository.countByUsername(username);
+    }
 }

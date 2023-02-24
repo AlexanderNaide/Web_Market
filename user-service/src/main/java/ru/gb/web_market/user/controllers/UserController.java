@@ -2,24 +2,17 @@ package ru.gb.web_market.user.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import ru.gb.web_market.api.dto.MessageDto;
 import ru.gb.web_market.api.dto.UserDto;
-import ru.gb.web_market.user.entities.AuthRequest;
-import ru.gb.web_market.user.entities.AuthResponse;
 import ru.gb.web_market.user.entities.User;
-import ru.gb.web_market.user.services.JwtService;
-import ru.gb.web_market.user.services.RoleService;
 import ru.gb.web_market.user.services.UserService;
 
-import java.text.SimpleDateFormat;
 import java.time.*;
-import java.util.Collections;
 import java.util.Date;
 
 @Slf4j
@@ -46,9 +39,18 @@ public class UserController {
     @PostMapping("/save")
     public void saveInformation(@RequestHeader String username, @RequestBody UserDto userDto){
         User user = userService.findByUsername(username).orElseThrow(() -> new BadCredentialsException("Пользователь не найден"));
-        if(userDto.getUsername() != null) {
-            user.setUsername(userDto.getUsername());
+        if (!user.getUsername().equals(userDto.getUsername())){
+            if(userDto.getUsername() == null) {
+                throw new BadCredentialsException("Имя пользователя не может быть пустым");
+            } else {
+                if (userService.containsUsername(userDto.getUsername()) == 0) {
+                    user.setUsername(userDto.getUsername());
+                } else {
+                    throw new BadCredentialsException("Логин уже занят.");
+                }
+            }
         }
+
         if(userDto.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         }
@@ -62,6 +64,11 @@ public class UserController {
             user.setBirthday(convertToLocalDate(userDto.getBirthday()));
         }
         userService.save(user);
+    }
+
+    @PostMapping("/valid_name")
+    public MessageDto validName(@RequestHeader String username, @RequestParam String newUserName){
+        return new MessageDto(userService.containsUsername(newUserName) == 0 ? "Ok" : "Такой логин уже занят");
     }
 
     private Long convertToLong(LocalDate dateToConvert) {
