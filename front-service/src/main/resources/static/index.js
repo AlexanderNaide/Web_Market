@@ -8,10 +8,6 @@
 
     function config($routeProvider){
         $routeProvider
-            // .when('/', {
-            //     templateUrl: 'index.html',
-            //     controller: 'index.js'
-            // })
             .when('/order', {
                 templateUrl: 'order/order.html',
                 controller: 'orderController'
@@ -50,7 +46,6 @@
 })();
 
 angular.module('market').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
-    const contextPathProducts = 'http://localhost:8066/products/api/v1';
     const contextPathOrder = 'http://localhost:8066/order/api/v1';
     const contextPathAuth = 'http://localhost:8066/auth/api/v1';
     const contextPathCart = 'http://localhost:8066/cart/api/v1';

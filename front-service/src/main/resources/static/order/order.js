@@ -39,17 +39,5 @@ angular.module('market').controller('orderController', function ($scope, $http, 
         });
     };
 
-
-    // $scope.redirectHome = function (){
-    //     window.location.href = 'product.html';
-    // };
-
-
-    // $scope.clearUser = function (){
-    //     delete $localStorage.webmarketUser;
-    //     $http.defaults.headers.common.Authorization = '';
-    //     $scope.redirectHome();
-    // };
-
     $scope.loadOrders();
 });

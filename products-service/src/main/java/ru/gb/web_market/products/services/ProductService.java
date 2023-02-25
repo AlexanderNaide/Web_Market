@@ -42,21 +42,18 @@ public class ProductService {
         }
 
         if(subCategories != null){
-//            long catId = Long.parseLong(Objects.requireNonNull(Arrays.stream(subCategories.split(",")).findFirst().orElse(null)));
             Optional<Category> categoryOptional = categoriesService.findById(subCategories);
             if(categoryOptional.isPresent()){
                 spec = spec.and(ProductSpecifications.category(categoryOptional.get()));
             }
         } else if (categories != null) {
-//            long catId = Long.parseLong(Objects.requireNonNull(Arrays.stream(categories.split(",")).findFirst().orElse(null)));
             Optional<Category> categoryOptional = categoriesService.findById(categories);
             if(categoryOptional.isPresent()){
-                spec = spec.and(ProductSpecifications.category(categoryOptional.get()));
+                spec = spec.and(ProductSpecifications.subCategory(categoryOptional.get()));
             }
         }
 
         if(man != null){
-//            spec = spec.and(ProductSpecifications.manufacturer(man));
             long manId = Long.parseLong(Objects.requireNonNull(Arrays.stream(man.split(",")).findFirst().orElse(null)));
             Optional<Manufacturer> manufacturerOptional = manufacturerService.findById(manId);
             if(manufacturerOptional.isPresent()){

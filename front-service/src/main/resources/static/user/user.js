@@ -12,6 +12,7 @@ angular.module('market').controller('userController', function ($scope, $http, $
             $scope.UserInformation.emailOld = $scope.UserInformation.email;
             if(response.data.birthday !== null) {
                 $scope.UserInformation.birthday = new Date(response.data.birthday);
+                $scope.UserInformation.birthdayOld = $scope.UserInformation.birthday;
             }
         });
     };
@@ -24,12 +25,7 @@ angular.module('market').controller('userController', function ($scope, $http, $
             phone: $scope.UserInformation.phone,
             birthday: $scope.UserInformation.birthday.getTime()
         };
-
-        $('#phone').removeClass('border-danger').removeClass('border-success');
-        $('#email').removeClass('border-danger').removeClass('border-success');
-        $('#pass1').removeClass('border-danger').removeClass('border-success');
-        $('#pass2').removeClass('border-danger').removeClass('border-success');
-        $('#userName').removeClass('border-danger').removeClass('border-success');
+        clearClass();
         $http({
             url: contextPathAuth + '/save',
             method: 'POST',
@@ -82,11 +78,9 @@ angular.module('market').controller('userController', function ($scope, $http, $
     $scope.emailMatching = function (){
         if($scope.UserInformation.email !== $scope.UserInformation.emailOld){
             const re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
-            // let email = $scope.UserInformation.emailNonValid;
             let valid = re.test($scope.UserInformation.email);
             if (valid) {
                 $('#email').removeClass('border-danger').addClass('border-success');
-                // $scope.UserInformation.email = email;
             } else {
                 $('#email').removeClass('border-success').addClass('border-danger');
             }
@@ -118,7 +112,23 @@ angular.module('market').controller('userController', function ($scope, $http, $
         }
     };
 
-    //TODO: повесить функцию возврата на предыдущие значения на кнопку сбросить
+    $scope.resetChanges = function () {
+        $scope.UserInformation.password1 = null;
+        $scope.UserInformation.password2 = null;
+        $scope.UserInformation.username = $scope.UserInformation.usernameOld;
+        $scope.UserInformation.phone = $scope.UserInformation.phoneOld;
+        $scope.UserInformation.email = $scope.UserInformation.emailOld;
+        $scope.UserInformation.birthday = $scope.UserInformation.birthdayOld;
+        clearClass();
+    };
+
+    function clearClass(){
+        $('#phone').removeClass('border-danger').removeClass('border-success');
+        $('#email').removeClass('border-danger').removeClass('border-success');
+        $('#pass1').removeClass('border-danger').removeClass('border-success');
+        $('#pass2').removeClass('border-danger').removeClass('border-success');
+        $('#userName').removeClass('border-danger').removeClass('border-success');
+    }
 
     $scope.loadInformation();
 
