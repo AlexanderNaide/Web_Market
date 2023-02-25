@@ -35,6 +35,11 @@ public class CartService {
     }
 
     public void clearCart(String username){
-        Objects.requireNonNull(userService.findByUsername(username).orElse(null)).getCart().clear();
+        Optional<User> oUser = userService.findByUsername(username);
+        if (oUser.isPresent()){
+            User user = oUser.get();
+            user.getCart().clear();
+            userService.save(user);
+        }
     }
 }

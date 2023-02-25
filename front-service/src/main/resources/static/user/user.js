@@ -37,6 +37,8 @@ angular.module('market').controller('userController', function ($scope, $http, $
         });
     };
 
+    //TODO: при смене лого=ина надо либо перезайти либо придумать как выдать новый токен с измененным именем пользователя
+
     $scope.passwordMatching = function (){
         let password1 = $scope.UserInformation.password1;
         let password2 = $scope.UserInformation.password2;
