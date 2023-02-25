@@ -1,5 +1,6 @@
 package ru.gb.web_market.api.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -13,7 +14,7 @@ public class OrderFullDto {
     private String status;
     private String address;
     private String info;
-    private Double fullPrice;
+    private BigDecimal fullPrice;
     private List<OrderItemDto> productList;
 
     public String getCreatedAt() {
@@ -48,11 +49,11 @@ public class OrderFullDto {
         this.info = info;
     }
 
-    public Double getFullPrice() {
+    public BigDecimal getFullPrice() {
         return fullPrice;
     }
 
-    public void setFullPrice(Double fullPrice) {
+    public void setFullPrice(BigDecimal fullPrice) {
         this.fullPrice = fullPrice;
     }
 
@@ -67,7 +68,7 @@ public class OrderFullDto {
     public OrderFullDto() {
     }
 
-    public OrderFullDto(String createdAt, String status, String address, String info, Double fullPrice, List<OrderItemDto> productList) {
+    public OrderFullDto(String createdAt, String status, String address, String info, BigDecimal fullPrice, List<OrderItemDto> productList) {
         this.createdAt = createdAt;
         this.status = status;
         this.address = address;

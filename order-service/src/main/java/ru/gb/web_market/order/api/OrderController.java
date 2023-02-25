@@ -10,6 +10,7 @@ import ru.gb.web_market.order.entities.OrderItem;
 import ru.gb.web_market.order.integrations.ProductServiceIntegration;
 import ru.gb.web_market.order.services.OrderService;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -29,7 +30,8 @@ public class OrderController {
                         e.getId(),
                         e.getCreatedAt(),
                         e.getStatus().getStatus(),
-                        e.getProductList().stream().mapToDouble(OrderItem::getPrice).sum()))
+//                        e.getProductList().stream().mapToDouble(OrderItem::getPrice).sum()))
+                        e.getProductList().stream().map(OrderItem::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add)))
                 .toList();
     }
 
