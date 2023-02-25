@@ -23,7 +23,7 @@ angular.module('market').controller('userController', function ($scope, $http, $
             password: $scope.UserInformation.password,
             email: $scope.UserInformation.email,
             phone: $scope.UserInformation.phone,
-            birthday: $scope.UserInformation.birthday.getTime()
+            birthday: $scope.UserInformation.birthday !== null ? $scope.UserInformation.birthday.getTime() : null
         };
         clearClass();
         $http({
