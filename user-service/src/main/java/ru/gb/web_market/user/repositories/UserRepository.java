@@ -12,4 +12,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     @Transactional
     Optional<User> findByUsername(String username);
+
+    Integer countByUsername (String username);
 }

@@ -1,0 +1,66 @@
+<div class="row align-items-start">
+    <div class="col-3">
+        <h4>Какие-то еще функции</h4>
+    </div>
+    <div class="col-9">
+        <nav class="navbar bg-light">
+            <div class="container-fluid">
+                <div class="col-7">
+                    <a class="navbar-brand"> <h3>Список заказов</h3></a>
+                </div>
+                <div class="col-5">
+                </div>
+            </div>
+        </nav>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Статус</th>
+                <th>Сумма</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="o in OrderList">
+                <td ng-click="getOrderById(o.id)" data-bs-toggle="modal" data-bs-target="#exampleModalOrder">{{o.createdAt}}</td>
+                <td ng-click="getOrderById(o.id)" data-bs-toggle="modal" data-bs-target="#exampleModalOrder">{{o.status}}</td>
+                <td ng-click="getOrderById(o.id)" data-bs-toggle="modal" data-bs-target="#exampleModalOrder">{{o.totalPrice}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalOrder" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div style="margin-left: 12px; margin-top: 30px; margin-bottom: 8px">
+                <h6>Оформлен: {{currentOrder.createdAt}},    Текущий статус: {{currentOrder.status}} </h6>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Наименование</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat='p in currentOrder.productList'>
+                    <td>{{p.product}}</td>
+                    <td>{{p.price}}</td>
+                    <td>{{p.count}}</td>
+                    <td>{{p.totalPrice}}</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="modal-footer">
+                <h6>Сумма заказа: {{currentOrder.fullPrice}}</h6>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+

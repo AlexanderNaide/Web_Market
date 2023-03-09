@@ -35,7 +35,7 @@ integrations:
     connect-timeout: 5000
 
   auth-service:
-    url-auth-service: "http://localhost:8083/market-auth"
+    url-auth-service: "http://localhost:8083/market-user"
     read-timeout: 10000
     write-timeout: 5000
     connect-timeout: 5000

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.gb.web_market.api.dto.ProductToCartDto;
 
+import java.math.BigDecimal;
+
 @Entity
 @Data
 @Table(name = "order_items")
@@ -32,16 +34,16 @@ public class OrderItem {
     private int count;
 
     @Column(name = "purchase_price", nullable = false)
-    private Double price;
+    private BigDecimal price;
 
     @Column(name = "total_price", nullable = false)
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     public OrderItem(Order order, ProductToCartDto productDto) {
         this.order = order;
         this.productId = productDto.getId();
         this.count = productDto.getCount();
         this.price = productDto.getPrice();
-        this.totalPrice = price * count;
+        this.totalPrice = price.multiply(BigDecimal.valueOf(count));
     }
 }

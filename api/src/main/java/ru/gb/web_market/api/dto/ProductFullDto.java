@@ -1,5 +1,7 @@
 package ru.gb.web_market.api.dto;
 
+import java.math.BigDecimal;
+
 public class ProductFullDto {
 
     private Long id;
@@ -10,7 +12,7 @@ public class ProductFullDto {
 
     private String title;
 
-    private Double price;
+    private BigDecimal price;
 
     private String manufacturer;
 
@@ -48,11 +50,11 @@ public class ProductFullDto {
         this.title = title;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -75,7 +77,7 @@ public class ProductFullDto {
     public ProductFullDto() {
     }
 
-    public ProductFullDto(Long id, String subCategory, String article, String title, Double price, String manufacturer, String description) {
+    public ProductFullDto(Long id, String subCategory, String article, String title, BigDecimal price, String manufacturer, String description) {
         this.id = id;
         this.subCategory = subCategory;
         this.article = article;

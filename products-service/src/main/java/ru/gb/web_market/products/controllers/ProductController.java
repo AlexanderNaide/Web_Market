@@ -46,7 +46,6 @@ public class ProductController {
 
     @PostMapping("/update_cart")
     public CartDto updateProductFromCart(@RequestBody CartDto cartDto){
-        System.out.println("Попали в updateProductFromCart");
         return productService.updateProductFromCart(cartDto);
     }
 

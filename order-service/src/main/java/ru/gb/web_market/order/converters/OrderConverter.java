@@ -6,6 +6,7 @@ import ru.gb.web_market.api.dto.OrderItemDto;
 import ru.gb.web_market.order.entities.Order;
 import ru.gb.web_market.order.entities.OrderItem;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -22,7 +23,8 @@ public class OrderConverter {
         orderFullDto.setAddress(order.getAddress());
         orderFullDto.setInfo(order.getInfo());
         orderFullDto.setProductList(order.getProductList().stream().map(this::orderItemToOrderItemDto).toList());
-        orderFullDto.setFullPrice(orderFullDto.getProductList().stream().mapToDouble(OrderItemDto::getTotalPrice).sum());
+//        orderFullDto.setFullPrice(orderFullDto.getProductList().stream().mapToDouble(OrderItemDto::getTotalPrice).sum());
+        orderFullDto.setFullPrice(orderFullDto.getProductList().stream().map(OrderItemDto::getTotalPrice).reduce(BigDecimal.ZERO, BigDecimal::add));
         return orderFullDto;
     }
 

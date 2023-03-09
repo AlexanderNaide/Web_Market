@@ -28,6 +28,10 @@ public class ProductSpecifications {
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category"), category);
     }
 
+    public static Specification<Product> subCategory(Category category){
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("category").get("parentCategory"), category);
+    }
+
     public static Specification<Product> manufacturer(Manufacturer man){
         return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(root.get("manufacturer"), man);
     }

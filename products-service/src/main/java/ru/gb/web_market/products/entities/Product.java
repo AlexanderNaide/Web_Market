@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -43,13 +44,13 @@ public class Product {
     private String title;
 
     @Column(name = "price")
-    private Double price;
+    private BigDecimal price;
 
     @Column(name = "purchase_price")
-    private Double purchasePrice;
+    private BigDecimal purchasePrice;
 
     @Column(name = "old_price")
-    private Double oldPrice;
+    private BigDecimal oldPrice;
 
     @Column(name = "count")
     private Integer count;

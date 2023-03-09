@@ -1,12 +1,14 @@
 package ru.gb.web_market.api.dto;
 
 
+import java.math.BigDecimal;
+
 public class OrderItemDto {
     private Long productId;
     private String product;
     private int count;
-    private Double price;
-    private Double totalPrice;
+    private BigDecimal price;
+    private BigDecimal totalPrice;
 
 
     public Long getProductId() {
@@ -33,26 +35,26 @@ public class OrderItemDto {
         this.count = count;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
     public OrderItemDto() {
     }
 
-    public OrderItemDto(Long productId, String product, int count, Double price, Double totalPrice) {
+    public OrderItemDto(Long productId, String product, int count, BigDecimal price, BigDecimal totalPrice) {
         this.productId = productId;
         this.product = product;
         this.count = count;

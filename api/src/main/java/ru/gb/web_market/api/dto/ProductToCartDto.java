@@ -1,5 +1,7 @@
 package ru.gb.web_market.api.dto;
 
+import java.math.BigDecimal;
+
 public class ProductToCartDto {
 
     private Long id;
@@ -8,7 +10,7 @@ public class ProductToCartDto {
 
     private String title;
 
-    private Double price;
+    private BigDecimal price;
 
     private Integer count;
 
@@ -36,11 +38,11 @@ public class ProductToCartDto {
         this.title = title;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -55,7 +57,7 @@ public class ProductToCartDto {
     public ProductToCartDto() {
     }
 
-    public ProductToCartDto(Long id, String article, String title, Double price, Integer count) {
+    public ProductToCartDto(Long id, String article, String title, BigDecimal price, Integer count) {
         this.id = id;
         this.article = article;
         this.title = title;
