@@ -18,6 +18,16 @@ public class ProductFullDto {
 
     private String description;
 
+    private ProductFullDto(Builder builder) {
+        setId(builder.id);
+        setSubCategory(builder.subCategory);
+        setArticle(builder.article);
+        setTitle(builder.title);
+        setPrice(builder.price);
+        setManufacturer(builder.manufacturer);
+        setDescription(builder.description);
+    }
+
     public Long getId() {
         return id;
     }
@@ -85,5 +95,62 @@ public class ProductFullDto {
         this.price = price;
         this.manufacturer = manufacturer;
         this.description = description;
+    }
+
+
+    public static final class Builder {
+        private Long id;
+        private String subCategory;
+        private String article;
+        private String title;
+        private BigDecimal price;
+        private String manufacturer;
+        private String description;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setSubCategory(String subCategory) {
+            this.subCategory = subCategory;
+            return this;
+        }
+
+        public Builder setArticle(String article) {
+            this.article = article;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setManufacturer(String manufacturer) {
+            this.manufacturer = manufacturer;
+            return this;
+        }
+
+        public Builder setDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public ProductFullDto build() {
+            return new ProductFullDto(this);
+        }
     }
 }

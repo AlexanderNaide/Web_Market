@@ -26,14 +26,22 @@ public class UserController {
     @GetMapping("/information")
     public UserDto getInformation(@RequestHeader String username){
         User user = userService.findByUsername(username).orElseThrow(() -> new BadCredentialsException("Пользователь не найден"));
-        UserDto userDto = new UserDto();
-        userDto.setUsername(user.getUsername());
-        userDto.setEmail(user.getEmail());
-        userDto.setPhone(user.getPhone());
-        if(user.getBirthday() != null){
-            userDto.setBirthday(convertToLong(user.getBirthday()));
-        }
-        return userDto;
+//        UserDto userDto = new UserDto();
+//        userDto.setUsername(user.getUsername());
+//        userDto.setEmail(user.getEmail());
+//        userDto.setPhone(user.getPhone());
+//        if(user.getBirthday() != null){
+//            userDto.setBirthday(convertToLong(user.getBirthday()));
+//        }
+
+        // Заменил на Builder
+
+        return UserDto.Builder.newBuilder()
+                .setUsername(user.getUsername())
+                .setEmail(user.getEmail())
+                .setPhone(user.getPhone())
+                .setBirthday(user.getBirthday() != null ? convertToLong(user.getBirthday()) : null)
+                .build();
     }
 
     @PostMapping("/save")
