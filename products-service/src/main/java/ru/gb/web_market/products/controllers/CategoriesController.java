@@ -17,7 +17,8 @@ public class CategoriesController {
     private final CategoriesService categoriesService;
 
     @Autowired
-    public CategoriesController(@Qualifier("cacheCategories") CategoriesService categoriesService) {
+//    public CategoriesController(@Qualifier("cacheCategories") CategoriesService categoriesService) {
+    public CategoriesController(@Qualifier("cacheCategoriesRedis") CategoriesService categoriesService) {
         this.categoriesService = categoriesService;
     }
 
