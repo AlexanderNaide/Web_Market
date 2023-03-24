@@ -8,7 +8,7 @@ import ru.gb.web_market.products.repositories.ManufacturerRepository;
 
 import java.util.*;
 
-@Service(value = "repo")
+@Service
 @RequiredArgsConstructor
 public class ManufacturerRepositoryService implements ManufacturerService {
 
@@ -16,7 +16,6 @@ public class ManufacturerRepositoryService implements ManufacturerService {
 
     @Override
     public List<String> findManufacturer(Long categories, Long subCategories){
-        System.out.println("Попали в ManufacturerRepositoryService, findManufacturer");
         if (subCategories != null){
             return manufacturerRepository.findManufacturer(subCategories);
         } else if (categories != null) {
@@ -28,7 +27,6 @@ public class ManufacturerRepositoryService implements ManufacturerService {
 
     @Override
     public Optional<Manufacturer> findById(long id){
-        System.out.println("Попали в ManufacturerRepositoryService, findById");
         return manufacturerRepository.findById(id);
     }
 }

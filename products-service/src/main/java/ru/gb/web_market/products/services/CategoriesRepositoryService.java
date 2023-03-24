@@ -10,7 +10,7 @@ import ru.gb.web_market.products.repositories.CategoriesRepository;
 import java.util.List;
 import java.util.Optional;
 
-@Service(value = "repo")
+@Service
 @RequiredArgsConstructor
 public class CategoriesRepositoryService implements CategoriesService {
 

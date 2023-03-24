@@ -29,7 +29,9 @@ public class ProductService {
     private final CategoriesService categoriesService;
     private final ManufacturerService manufacturerService;
 
-    public ProductService(ProductRepository productRepository, CategoriesService categoriesService, @Qualifier("cache") ManufacturerService manufacturerService) {
+    public ProductService(ProductRepository productRepository,
+                          @Qualifier("cacheCategories") CategoriesService categoriesService,
+                          @Qualifier("cacheManufacturer") ManufacturerService manufacturerService) {
         this.productRepository = productRepository;
         this.categoriesService = categoriesService;
         this.manufacturerService = manufacturerService;
