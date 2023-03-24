@@ -14,15 +14,46 @@ public class ProductConverter {
     }*/
 
     public ProductDto entityToDto(Product product){
-        return new ProductDto(product.getId(), product.getArticle(), product.getTitle(), product.getPrice());
+//        return new ProductDto(product.getId(), product.getArticle(), product.getTitle(), product.getPrice());
+
+        // Заменено на Builder
+
+        return ProductDto.Builder.newBuilder()
+                .setId(product.getId())
+                .setArticle(product.getArticle())
+                .setTitle(product.getTitle())
+                .setPrice(product.getPrice())
+                .build();
     }
 
     public ProductToCartDto entityToCardDto(Product product, Integer count){
-        return new ProductToCartDto(product.getId(), product.getArticle(), product.getTitle(), product.getPrice(), count);
+//        return new ProductToCartDto(product.getId(), product.getArticle(), product.getTitle(), product.getPrice(), count);
+
+        // Заменено на Builder
+
+        return ProductToCartDto.Builder.newBuilder()
+                .setId(product.getId())
+                .setArticle(product.getArticle())
+                .setTitle(product.getTitle())
+                .setPrice(product.getPrice())
+                .setCount(count)
+                .build();
     }
 
     public ProductFullDto entityToFullDto(Product product){
-        return new ProductFullDto(product.getId(), product.getCategory().getTitle(), product.getArticle(), product.getTitle(), product.getPrice(), product.getManufacturer().getTitle(), product.getDescription());
+//        return new ProductFullDto(product.getId(), product.getCategory().getTitle(), product.getArticle(), product.getTitle(), product.getPrice(), product.getManufacturer().getTitle(), product.getDescription());
+
+        // Заменено на Builder
+
+        return ProductFullDto.Builder.newBuilder()
+                .setId(product.getId())
+                .setSubCategory(product.getCategory().getTitle())
+                .setArticle(product.getArticle())
+                .setTitle(product.getTitle())
+                .setPrice(product.getPrice())
+                .setManufacturer(product.getManufacturer().getTitle())
+                .setDescription(product.getDescription())
+                .build();
     }
 
 }

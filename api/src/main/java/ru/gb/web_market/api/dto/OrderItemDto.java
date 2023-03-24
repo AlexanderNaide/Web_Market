@@ -10,6 +10,14 @@ public class OrderItemDto {
     private BigDecimal price;
     private BigDecimal totalPrice;
 
+    private OrderItemDto(Builder builder) {
+        setProductId(builder.productId);
+        setProduct(builder.product);
+        setCount(builder.count);
+        setPrice(builder.price);
+        setTotalPrice(builder.totalPrice);
+    }
+
 
     public Long getProductId() {
         return productId;
@@ -60,5 +68,50 @@ public class OrderItemDto {
         this.count = count;
         this.price = price;
         this.totalPrice = totalPrice;
+    }
+
+
+    public static final class Builder {
+        private Long productId;
+        private String product;
+        private int count;
+        private BigDecimal price;
+        private BigDecimal totalPrice;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder setProductId(Long productId) {
+            this.productId = productId;
+            return this;
+        }
+
+        public Builder setProduct(String product) {
+            this.product = product;
+            return this;
+        }
+
+        public Builder setCount(int count) {
+            this.count = count;
+            return this;
+        }
+
+        public Builder setPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder setTotalPrice(BigDecimal totalPrice) {
+            this.totalPrice = totalPrice;
+            return this;
+        }
+
+        public OrderItemDto build() {
+            return new OrderItemDto(this);
+        }
     }
 }

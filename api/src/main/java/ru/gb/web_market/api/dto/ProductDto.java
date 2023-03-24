@@ -12,6 +12,13 @@ public class ProductDto {
 
     private BigDecimal price;
 
+    private ProductDto(Builder builder) {
+        setId(builder.id);
+        setArticle(builder.article);
+        setTitle(builder.title);
+        setPrice(builder.price);
+    }
+
     public Long getId() {
         return id;
     }
@@ -52,5 +59,44 @@ public class ProductDto {
         this.article = article;
         this.title = title;
         this.price = price;
+    }
+
+
+    public static final class Builder {
+        private Long id;
+        private String article;
+        private String title;
+        private BigDecimal price;
+
+        private Builder() {
+        }
+
+        public static Builder newBuilder() {
+            return new Builder();
+        }
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder setArticle(String article) {
+            this.article = article;
+            return this;
+        }
+
+        public Builder setTitle(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder setPrice(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public ProductDto build() {
+            return new ProductDto(this);
+        }
     }
 }
