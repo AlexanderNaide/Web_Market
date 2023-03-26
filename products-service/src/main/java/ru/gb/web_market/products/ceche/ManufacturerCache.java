@@ -2,7 +2,6 @@ package ru.gb.web_market.products.ceche;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.gb.web_market.products.entities.Category;
 import ru.gb.web_market.products.entities.Manufacturer;
 import ru.gb.web_market.products.services.ManufacturerRepositoryService;
 import ru.gb.web_market.products.services.ManufacturerService;
@@ -10,6 +9,10 @@ import ru.gb.web_market.products.services.ManufacturerService;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+/**
+ * Простой класс для хранения кэша в оперативке
+ */
 
 @Service(value = "cacheManufacturer")
 @RequiredArgsConstructor

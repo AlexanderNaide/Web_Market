@@ -4,15 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.gb.web_market.api.dto.CategoryDto;
 import ru.gb.web_market.products.entities.Category;
-import ru.gb.web_market.products.entities.Manufacturer;
 import ru.gb.web_market.products.services.CategoriesRepositoryService;
 import ru.gb.web_market.products.services.CategoriesService;
-import ru.gb.web_market.products.services.ManufacturerRepositoryService;
-import ru.gb.web_market.products.services.ManufacturerService;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
+
+/**
+ * Простой класс для хранения кэша в оперативке
+ */
 
 @Service(value = "cacheCategories")
 @RequiredArgsConstructor
@@ -24,7 +26,6 @@ public class CategoriesCache implements CategoriesService {
 
     @Override
     public List<CategoryDto> findCategories(Long id) {
-
         if (!categoriesCache.containsKey(id)){
             categoriesCache.put(id, categoriesRepositoryService.findCategories(id).stream().map(e -> new CategoryDto(e.getId(), e.getTitle())).toList());
         }
