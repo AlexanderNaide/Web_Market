@@ -30,8 +30,10 @@ public class ProductService {
     private final ManufacturerService manufacturerService;
 
     public ProductService(ProductRepository productRepository,
-                          @Qualifier("cacheCategoriesRedis") CategoriesService categoriesService,
-                          @Qualifier("cacheManufacturerRedis") ManufacturerService manufacturerService) {
+                          @Qualifier("cacheCategories") CategoriesService categoriesService,
+//                          @Qualifier("cacheCategoriesRedis") CategoriesService categoriesService,
+                          @Qualifier("cacheManufacturer") ManufacturerService manufacturerService) {
+//                          @Qualifier("cacheManufacturerRedis") ManufacturerService manufacturerService) {
         this.productRepository = productRepository;
         this.categoriesService = categoriesService;
         this.manufacturerService = manufacturerService;

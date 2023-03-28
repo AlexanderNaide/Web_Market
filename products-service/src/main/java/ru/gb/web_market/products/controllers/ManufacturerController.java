@@ -15,7 +15,8 @@ import java.util.List;
 public class ManufacturerController {
     private final ManufacturerService manufacturerService;
     @Autowired
-    public ManufacturerController(@Qualifier("cacheManufacturerRedis") ManufacturerService manufacturerService) {
+    public ManufacturerController(@Qualifier("cacheManufacturer") ManufacturerService manufacturerService) {
+//    public ManufacturerController(@Qualifier("cacheManufacturerRedis") ManufacturerService manufacturerService) {
         this.manufacturerService = manufacturerService;
     }
 
