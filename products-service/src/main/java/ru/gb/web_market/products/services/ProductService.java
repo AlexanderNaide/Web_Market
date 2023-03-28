@@ -1,6 +1,9 @@
 package ru.gb.web_market.products.services;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -20,12 +23,19 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoriesService categoriesService;
     private final ManufacturerService manufacturerService;
 
+    public ProductService(ProductRepository productRepository,
+                          @Qualifier("cacheCategoriesRedis") CategoriesService categoriesService,
+                          @Qualifier("cacheManufacturerRedis") ManufacturerService manufacturerService) {
+        this.productRepository = productRepository;
+        this.categoriesService = categoriesService;
+        this.manufacturerService = manufacturerService;
+    }
 
     public Page<Product> findCom(Double minPrice, Double maxPrice, String title, Long categories, Long subCategories, String man, Integer page){
 

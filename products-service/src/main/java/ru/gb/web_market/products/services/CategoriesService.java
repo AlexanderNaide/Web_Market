@@ -11,17 +11,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Service
-@RequiredArgsConstructor
-public class CategoriesService {
+public interface CategoriesService {
 
-    private final CategoriesRepository categoriesRepository;
-
-    public List<CategoryDto> findCategories(Long id) {
-        return categoriesRepository.findCategories(id).stream().map(e -> new CategoryDto(e.getId(), e.getTitle())).toList();
-    }
-
-    public Optional<Category> findById(Long id){
-        return categoriesRepository.findById(id);
-    }
+    List<CategoryDto> findCategories(Long id);
+    Optional<Category> findById(Long id);
 }
