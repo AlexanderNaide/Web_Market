@@ -3,6 +3,7 @@ package ru.gb.web_market.api.dto;
 
 import java.math.BigDecimal;
 
+
 public class OrderItemDto {
     private Long productId;
     private String product;
