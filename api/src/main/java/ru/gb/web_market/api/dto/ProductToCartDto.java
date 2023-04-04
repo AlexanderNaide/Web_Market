@@ -2,6 +2,7 @@ package ru.gb.web_market.api.dto;
 
 import java.math.BigDecimal;
 
+
 public class ProductToCartDto {
 
     private Long id;

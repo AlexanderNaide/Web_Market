@@ -3,6 +3,7 @@ package ru.gb.web_market.api.dto;
 
 import java.util.Date;
 
+
 public class UserDto {
     private String username;
     private String password;

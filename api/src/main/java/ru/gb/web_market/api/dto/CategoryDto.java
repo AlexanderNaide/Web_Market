@@ -1,5 +1,6 @@
 package ru.gb.web_market.api.dto;
 
+
 public class CategoryDto {
     private Long id;
     private String title;

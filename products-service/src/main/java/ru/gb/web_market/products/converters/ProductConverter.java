@@ -6,6 +6,7 @@ import ru.gb.web_market.api.dto.ProductFullDto;
 import ru.gb.web_market.api.dto.ProductToCartDto;
 import ru.gb.web_market.products.entities.Product;
 
+
 @Component
 public class ProductConverter {
 
