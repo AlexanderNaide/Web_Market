@@ -1,0 +1,48 @@
+<form id="userFilter" novalidate ng-submit="saveInformation()">
+
+    <h5> Имя пользователя </h5>
+    <label>
+        <input id="userName" class="form-control" type="text" ng-change="userNameMatching()" ng-model="UserInformation.username" value="{{UserInformation.username}}" placeholder="{{UserInformation.username}}">
+        <h7 style="color: red"> {{UserInformation.usernameMessage}} </h7>
+    </label>
+
+    <br>
+
+    <h5> Дата рождения </h5>
+    <label>
+        <input class="form-control" type="date" ng-model="UserInformation.birthday" placeholder="{{UserInformation.birthday}}">
+    </label>
+
+    <br>
+
+    <h5> Электронная почта </h5>
+    <label>
+        <input id="email" class="form-control" type="text" ng-model="UserInformation.email" ng-change="emailMatching()" value="{{UserInformation.email}}" placeholder="{{UserInformation.email}}">
+    </label>
+
+    <br>
+
+    <h5> Телефон </h5>
+    <label>
+        <input id="phone" class="form-control" type="text" ng-model="UserInformation.phone" ng-change="phoneMatching()" value="{{UserInformation.phone}}" placeholder="{{UserInformation.phone}}">
+    </label>
+
+    <hr>
+
+    <h5> Изменить пароль пользователя
+    </h5>
+
+    <label> Введите новый пароль
+        <input id="pass1" class="form-control" type="password" ng-model="UserInformation.password1" ng-change="passwordMatching()" placeholder="" autocomplete="new-password">
+    </label>
+
+    <label style="margin-left: 60px"> Повторите ввод нового пароля
+        <input id="pass2" class="form-control" type="password" ng-model="UserInformation.password2" ng-change="passwordMatching()" placeholder="" autocomplete="off">
+    </label>
+
+    <hr>
+
+    <button type="button" class="btn btn-secondary" ng-click="resetChanges()">Сбросить</button>
+    <button class="btn btn-success" type="submit">Сохранить</button>
+
+</form>

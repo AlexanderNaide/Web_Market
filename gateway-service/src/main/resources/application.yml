@@ -1,0 +1,61 @@
+server:
+  port: 8066
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:8000"
+            allowedMethods:
+              - GET
+              - POST
+            allowedHeaders: "*"
+      routes:
+        - id: order-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/order/**  # http://localhost:8888/order/api/v1 -> http://localhost:8081/market-order/api/v1
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/market-order
+            - JwtAuthFilter
+        - id: product-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/products/**   # http://localhost:8888/products/api/v1 -> http://localhost:8084/market-products/api/v1
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/market-products
+            - JwtAuthFilter
+        - id: user-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/market-user
+            - JwtAuthFilter
+        - id: cart-service
+          uri: http://localhost:8083
+          predicates:
+            - Path=/cart/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/market-user
+            - JwtAuthFilter
+
+jwt:
+  secret: skljghiklk*/*h*mdbbKJH0832dfdlgb645dsrfg4234HGU5+6/56SEDKJjhb3hg
+
+#logging:
+#  level:
+#    reactor:
+#      netty: TRACE
+#    org:
+#      springframework:
+#        cloud:
+#          gateway: TRACE
